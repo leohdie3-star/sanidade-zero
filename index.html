@@ -8,7 +8,7 @@
   <meta property="og:title" content="Sanidade Zero — Rock de Itajubá/MG">
   <meta property="og:description" content="Rock raiz, presença de palco e clássicos dos anos 70 e 80 para o seu evento.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/hero-pedrockinho.jpg">
+  <meta property="og:image" content="assets/galeria-palco-pedrockinho.jpg">
   <link rel="icon" href="assets/logo-sanidade-zero.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,19 +18,18 @@
       --black:#070607;
       --coal:#0d0b0c;
       --panel:#141114;
-      --panel-2:#1a1519;
       --line:rgba(244,239,232,.14);
       --paper:#f4efe8;
       --muted:#b8aea6;
       --red:#e32636;
-      --red-dark:#9f1020;
       --amber:#ffb454;
       --max:1240px;
       --radius:22px;
       --shadow:0 30px 80px rgba(0,0,0,.48);
+      --header-h:76px;
     }
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    html{scroll-behavior:smooth; scroll-padding-top:calc(var(--header-h) + 20px)}
     body{
       margin:0;
       background:var(--black);
@@ -43,7 +42,7 @@
       content:"";
       position:fixed;
       inset:0;
-      z-index:999;
+      z-index:90;
       pointer-events:none;
       opacity:.032;
       background-image:repeating-linear-gradient(0deg, transparent 0 2px, #fff 2px 3px), repeating-linear-gradient(90deg, transparent 0 3px, #fff 3px 4px);
@@ -57,6 +56,8 @@
       background:#fff; color:#000; padding:.75rem 1rem; font-weight:800;
     }
     .skip-link:focus{top:1rem}
+
+    /* ---------- Header (única lockup de marca do site) ---------- */
     .site-header{
       position:fixed; inset:0 0 auto; z-index:100;
       transition:background .3s ease, border-color .3s ease, backdrop-filter .3s ease;
@@ -69,26 +70,20 @@
     }
     .header-inner{
       width:min(var(--max), calc(100% - 2rem));
-      margin:auto; min-height:76px;
+      margin:auto; min-height:var(--header-h);
       display:flex; align-items:center; justify-content:space-between; gap:1.25rem;
     }
-    .brand{
-      display:flex; align-items:center; gap:.8rem; text-decoration:none; min-width:0;
-    }
+    .brand{display:flex; align-items:center; gap:.8rem; text-decoration:none; min-width:0}
     .brand img{
       width:48px; height:48px; object-fit:cover;
       border:1px solid rgba(255,255,255,.28); border-radius:12px;
       box-shadow:0 10px 30px rgba(0,0,0,.4);
     }
     .brand-text{line-height:.95}
-    .brand-text strong{
-      display:block; font-family:"Anton", Impact, sans-serif; font-size:1.28rem; letter-spacing:.06em; font-weight:400;
-    }
+    .brand-text strong{display:block; font-family:"Anton", Impact, sans-serif; font-size:1.28rem; letter-spacing:.06em; font-weight:400}
     .brand-text span{font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); font-weight:800}
     .main-nav{display:flex; align-items:center; gap:1.6rem}
-    .main-nav a{
-      text-decoration:none; font-size:.78rem; text-transform:uppercase; letter-spacing:.13em; font-weight:800; color:#e9e2d9;
-    }
+    .main-nav a{text-decoration:none; font-size:.78rem; text-transform:uppercase; letter-spacing:.13em; font-weight:800; color:#e9e2d9}
     .main-nav a:not(.nav-cta):hover{color:var(--amber)}
     .nav-cta{
       background:var(--red); color:#fff !important; padding:.72rem 1rem;
@@ -98,12 +93,19 @@
       display:none; width:46px; height:46px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:#fff;
       border-radius:12px; cursor:pointer; font-size:1.25rem;
     }
+
+    /* ---------- Hero ---------- */
     .hero{
       position:relative; min-height:100svh; display:flex; align-items:flex-end;
       isolation:isolate; overflow:hidden; padding:9.5rem 0 0;
     }
-    .hero-bg{position:absolute; inset:0; z-index:-3}
-    .hero-bg img{width:100%; height:100%; object-fit:cover; object-position:center 42%; filter:saturate(1.05) contrast(1.05)}
+    .hero-bg{position:absolute; inset:-14% 0; z-index:-3; will-change:transform}
+    .hero-bg img{
+      width:100%; height:100%; object-fit:cover; object-position:center 42%;
+      filter:saturate(1.06) contrast(1.06);
+      animation:kenburns 28s ease-in-out infinite alternate;
+    }
+    @keyframes kenburns{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.15) translate(-1.5%,-2%)}}
     .hero::before{
       content:""; position:absolute; inset:0; z-index:-2;
       background:linear-gradient(90deg, rgba(4,3,4,.94) 0%, rgba(4,3,4,.78) 42%, rgba(4,3,4,.2) 76%), linear-gradient(0deg, var(--black) 0%, transparent 42%), linear-gradient(180deg, rgba(0,0,0,.58), transparent 36%);
@@ -112,11 +114,12 @@
       content:""; position:absolute; width:52vw; height:160px; right:-12vw; top:22%; z-index:-1;
       background:linear-gradient(90deg, transparent, rgba(227,38,54,.72)); transform:rotate(-8deg); filter:blur(1px); opacity:.55;
     }
+    #brasas{position:absolute; inset:0; z-index:-1; pointer-events:none}
+    .hero-glow{
+      position:absolute; inset:0; z-index:-1; pointer-events:none;
+      background:radial-gradient(560px circle at var(--mx,50%) var(--my,38%), rgba(227,38,54,.20), rgba(255,180,84,.07) 42%, transparent 68%);
+    }
     .hero-inner{width:min(var(--max), calc(100% - 2rem)); margin:auto; padding-bottom:3rem}
-    .hero-lockup{display:flex; align-items:center; gap:1rem; margin-bottom:1.4rem}
-    .hero-lockup img{width:86px; height:86px; object-fit:cover; border-radius:18px; border:1px solid rgba(255,255,255,.3); box-shadow:var(--shadow)}
-    .hero-lockup p{margin:0; max-width:280px; color:#fff; font-weight:800; line-height:1.3}
-    .hero-lockup p span{display:block; color:var(--amber); text-transform:uppercase; letter-spacing:.16em; font-size:.72rem; margin-bottom:.25rem}
     .eyebrow{
       display:inline-flex; align-items:center; gap:.65rem; margin:0 0 1rem;
       text-transform:uppercase; letter-spacing:.22em; font-size:.72rem; font-weight:900; color:#fff;
@@ -147,8 +150,18 @@
     .button-primary{background:var(--red); color:#fff; clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%)}
     .button-primary:hover{background:#f04452}
     .button-ghost{border:1px solid rgba(255,255,255,.38); background:rgba(0,0,0,.28); color:#fff; backdrop-filter:blur(8px)}
+    .eq{display:flex; align-items:flex-end; gap:4px; height:26px; margin-top:1.6rem}
+    .eq span{width:5px; background:linear-gradient(180deg, var(--amber), var(--red)); border-radius:2px; transform-origin:bottom; animation:eq 1.1s ease-in-out infinite}
+    .eq span:nth-child(1){height:55%; animation-duration:.9s}
+    .eq span:nth-child(2){height:90%; animation-duration:1.25s; animation-delay:.12s}
+    .eq span:nth-child(3){height:65%; animation-duration:1s; animation-delay:.3s}
+    .eq span:nth-child(4){height:100%; animation-duration:1.4s; animation-delay:.05s}
+    .eq span:nth-child(5){height:70%; animation-duration:1.15s; animation-delay:.22s}
+    .eq span:nth-child(6){height:85%; animation-duration:.95s; animation-delay:.4s}
+    .eq span:nth-child(7){height:50%; animation-duration:1.3s; animation-delay:.18s}
+    @keyframes eq{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
     .hero-meta{
-      display:grid; grid-template-columns:repeat(3, 1fr); margin-top:3.2rem;
+      display:grid; grid-template-columns:repeat(3, 1fr); margin-top:2.6rem;
       border-top:1px solid rgba(255,255,255,.2); border-bottom:1px solid rgba(255,255,255,.12);
       background:linear-gradient(90deg, rgba(0,0,0,.42), rgba(0,0,0,.08)); backdrop-filter:blur(5px);
     }
@@ -156,10 +169,14 @@
     .hero-meta div + div{border-left:1px solid rgba(255,255,255,.14)}
     .hero-meta strong{display:block; font-family:"Anton", Impact, sans-serif; font-size:1.35rem; font-weight:400; letter-spacing:.05em}
     .hero-meta span{color:var(--muted); font-size:.82rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em}
+
+    /* ---------- Marquee ---------- */
     .marquee{background:var(--red); color:#fff; overflow:hidden; transform:rotate(-1.1deg) scale(1.02); border-block:4px solid #fff; box-shadow:0 16px 50px rgba(0,0,0,.35)}
     .marquee-track{display:flex; width:max-content; animation:marquee 24s linear infinite}
     .marquee-track span{font-family:"Anton", Impact, sans-serif; font-size:clamp(1.25rem, 3vw, 2.2rem); letter-spacing:.08em; text-transform:uppercase; padding:.72rem 1.4rem; white-space:nowrap}
     @keyframes marquee{to{transform:translateX(-50%)}}
+
+    /* ---------- Seções ---------- */
     .section{padding:clamp(5rem, 10vw, 8.5rem) 0; position:relative}
     .section.alt{background:linear-gradient(180deg, #0a0809, #100d10)}
     .container{width:min(var(--max), calc(100% - 2rem)); margin:auto}
@@ -168,6 +185,8 @@
     h2{font-family:"Anton", Impact, sans-serif; font-size:clamp(2.55rem, 6vw, 5.2rem); font-weight:400; text-transform:uppercase; letter-spacing:.02em}
     h2 em{font-style:normal; color:var(--red)}
     .section-head p{max-width:480px; color:var(--muted); margin:0; font-size:1.02rem}
+
+    /* A banda */
     .about-grid{display:grid; grid-template-columns:1.02fr .98fr; gap:clamp(2rem, 5vw, 5rem); align-items:center}
     .about-copy p{color:#d8d0c8; font-size:1.06rem}
     .about-copy p:first-child{margin-top:0}
@@ -188,10 +207,12 @@
     .format-card svg{width:38px; height:38px; stroke:var(--amber); margin-bottom:1.2rem}
     .format-card h3{font-size:1.15rem; line-height:1.15; margin-bottom:.6rem}
     .format-card p{color:var(--muted); margin:0; font-size:.94rem}
+
+    /* Shows */
     .events-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:1rem}
     .event-card{
       background:var(--panel); border:1px solid var(--line); border-radius:20px; overflow:hidden;
-      display:flex; flex-direction:column; min-height:100%;
+      display:flex; flex-direction:column; min-height:100%; cursor:pointer;
       transition:transform .25s ease, border-color .25s ease;
     }
     .event-card:hover{transform:translateY(-5px); border-color:rgba(255,180,84,.5)}
@@ -202,13 +223,31 @@
     .event-tag{color:var(--amber); text-transform:uppercase; font-size:.68rem; letter-spacing:.17em; font-weight:900}
     .event-body h3{font-size:1.28rem; line-height:1.1}
     .event-body p{color:var(--muted); margin:0; font-size:.94rem; flex:1}
-    .album-link{color:#fff; font-weight:900; text-decoration:none; text-transform:uppercase; letter-spacing:.08em; font-size:.74rem}
-    .album-link:hover{color:var(--amber)}
-    .gallery-grid{display:grid; grid-template-columns:repeat(4, 1fr); grid-auto-rows:210px; gap:1rem}
-    .gallery-item{
-      position:relative; border:0; padding:0; overflow:hidden; border-radius:18px; cursor:pointer; background:#222;
-      text-align:left; color:#fff;
+    .album-link{
+      color:#fff; font-weight:900; text-transform:uppercase; letter-spacing:.08em; font-size:.74rem;
+      background:none; border:0; padding:0; cursor:pointer; text-align:left; font-family:inherit;
     }
+    .album-link:hover{color:var(--amber)}
+
+    /* Galeria — catálogo interno. NENHUM item depende de reveal: visível por padrão. */
+    .gallery-tools{display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.6rem}
+    .filter-chips{display:flex; flex-wrap:wrap; gap:.55rem}
+    .chip{
+      border:1px solid var(--line); background:rgba(255,255,255,.04); color:#e9e2d9;
+      padding:.55rem 1rem; border-radius:999px; cursor:pointer;
+      font-weight:800; font-size:.74rem; letter-spacing:.1em; text-transform:uppercase;
+      transition:background .2s ease, border-color .2s ease, color .2s ease;
+    }
+    .chip:hover{border-color:rgba(255,180,84,.6); color:#fff}
+    .chip.active{background:var(--red); border-color:var(--red); color:#fff}
+    .gallery-count{margin:0; color:var(--muted); font-weight:800; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase}
+    .gallery-count strong{color:#fff; font-family:"Anton", Impact, sans-serif; font-weight:400; font-size:1.05rem; letter-spacing:.05em}
+    .gallery-grid{display:grid; grid-template-columns:repeat(4, 1fr); grid-auto-rows:210px; grid-auto-flow:dense; gap:1rem}
+    .gallery-item{
+      position:relative; border:0; padding:0; margin:0; overflow:hidden; border-radius:18px; cursor:pointer; background:#222;
+      text-align:left; color:#fff; width:100%;
+    }
+    .gallery-item[hidden]{display:none}
     .gallery-item.wide{grid-column:span 2}
     .gallery-item.tall{grid-row:span 2}
     .gallery-item img{width:100%; height:100%; object-fit:cover; transition:transform .45s ease, filter .45s ease}
@@ -218,6 +257,10 @@
       background:linear-gradient(transparent, rgba(0,0,0,.86)); font-weight:900; letter-spacing:.03em;
     }
     .gallery-item figcaption span{display:block; color:var(--amber); font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; margin-bottom:.2rem}
+    .gallery-item.pop{animation:galIn .45s ease both}
+    @keyframes galIn{from{opacity:0; transform:scale(.965)}to{opacity:1; transform:scale(1)}}
+
+    /* Integrantes */
     .members-layout{display:grid; grid-template-columns:.92fr 1.08fr; gap:clamp(2rem, 5vw, 5rem); align-items:center}
     .members-photo{position:relative}
     .members-photo img{width:100%; height:560px; object-fit:cover; border-radius:4px; box-shadow:var(--shadow)}
@@ -227,6 +270,8 @@
     .member-initial{font-family:"Anton", Impact, sans-serif; font-size:3.6rem; line-height:1; color:transparent; -webkit-text-stroke:1.5px rgba(255,255,255,.55)}
     .member-card h3{font-family:"Anton", Impact, sans-serif; font-weight:400; font-size:1.65rem; letter-spacing:.04em; text-transform:uppercase; margin-top:1.2rem}
     .member-card p{margin:.2rem 0 0; color:var(--amber); font-size:.75rem; letter-spacing:.16em; text-transform:uppercase; font-weight:900}
+
+    /* Contrate */
     .booking{
       position:relative; overflow:hidden; border-radius:28px; padding:clamp(2rem, 6vw, 5rem);
       border:1px solid var(--line); isolation:isolate; box-shadow:var(--shadow);
@@ -238,12 +283,20 @@
     .booking-actions{display:flex; flex-wrap:wrap; gap:.85rem; margin-top:1.8rem}
     .contact-line{display:flex; flex-wrap:wrap; gap:1rem 2rem; margin-top:1.6rem; color:#fff; font-weight:800}
     .contact-line a{text-decoration:none; border-bottom:1px solid rgba(255,255,255,.35)}
+
+    /* Rodapé */
     .site-footer{border-top:1px solid var(--line); padding:2.2rem 0; background:#050405}
     .footer-inner{width:min(var(--max), calc(100% - 2rem)); margin:auto; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap}
     .footer-inner p{margin:0; color:var(--muted); font-size:.9rem}
     .footer-inner .credit{font-size:.78rem; letter-spacing:.04em}
-    .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease}
-    .reveal.visible{opacity:1; transform:none}
+
+    /* Reveal progressivo: o estado inicial (invisível) só é aplicado pela classe .rv-on,
+       que o JS adiciona DEPOIS de confirmar que o IntersectionObserver existe.
+       Sem JS, sem IO ou com qualquer erro, TODO o conteúdo fica visível. */
+    .rv-on .rv{opacity:0; transform:translateY(22px); transition:opacity .6s ease, transform .6s ease}
+    .rv-on .rv.in{opacity:1; transform:none}
+
+    /* Lightbox */
     .lightbox{
       position:fixed; inset:0; z-index:300; display:none; align-items:center; justify-content:center;
       background:rgba(0,0,0,.94); padding:1rem;
@@ -253,7 +306,15 @@
     .lightbox-card img{width:100%; max-height:78vh; object-fit:contain; background:#111}
     .lightbox-caption{display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:1rem 0; color:#fff; font-weight:800}
     .lightbox-close{background:#fff; color:#000; border:0; width:44px; height:44px; border-radius:50%; cursor:pointer; font-size:1.4rem; flex:0 0 auto}
+    .lightbox-nav{
+      background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.3);
+      width:44px; height:44px; border-radius:50%; cursor:pointer; font-size:1.35rem; flex:0 0 auto;
+      display:grid; place-items:center; transition:background .2s ease;
+    }
+    .lightbox-nav:hover{background:var(--red)}
+    .lightbox-count{color:var(--muted); font-weight:800; font-size:.85rem; letter-spacing:.08em}
     :focus-visible{outline:3px solid var(--amber); outline-offset:3px}
+
     @media (max-width: 1020px){
       .formats-grid,.events-grid{grid-template-columns:repeat(2, 1fr)}
       .gallery-grid{grid-template-columns:repeat(2, 1fr)}
@@ -264,14 +325,15 @@
     @media (max-width: 760px){
       .menu-button{display:grid; place-items:center}
       .main-nav{
-        position:absolute; top:76px; left:1rem; right:1rem; display:none; flex-direction:column; align-items:stretch;
+        position:absolute; top:var(--header-h); left:1rem; right:1rem; display:none; flex-direction:column; align-items:stretch;
         background:rgba(10,8,10,.97); border:1px solid var(--line); border-radius:16px; padding:1rem; gap:.35rem;
       }
       .main-nav.open{display:flex}
       .main-nav a{padding:.75rem}
       .nav-cta{text-align:center}
       .hero{padding-top:7.5rem}
-      .hero-lockup img{width:64px; height:64px; border-radius:14px}
+      .hero-bg img{object-position:44% 30%}
+      .eq{display:none}
       .hero-meta{grid-template-columns:1fr}
       .hero-meta div + div{border-left:0; border-top:1px solid rgba(255,255,255,.14)}
       .section-head{display:block}
@@ -288,70 +350,8 @@
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
       *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important}
-      .reveal{opacity:1; transform:none}
-    }
-      /* ===== Correção 20/10: catálogo interno + hero imersivo ===== */
-    .hero-bg img{animation:kenburns 26s ease-in-out infinite alternate}
-    @keyframes kenburns{from{transform:scale(1.03) translate(0,0)}to{transform:scale(1.16) translate(-1.5%, -2%)}}
-    #brasas{position:absolute; inset:0; z-index:-1; pointer-events:none}
-    .hero-glow{
-      position:absolute; inset:0; z-index:-1; pointer-events:none;
-      background:radial-gradient(560px circle at var(--mx,50%) var(--my,38%), rgba(227,38,54,.20), rgba(255,180,84,.07) 42%, transparent 68%);
-      transition:opacity .4s ease;
-    }
-    .eq{display:flex; align-items:flex-end; gap:4px; height:26px; margin-top:1.6rem}
-    .eq span{width:5px; background:linear-gradient(180deg, var(--amber), var(--red)); border-radius:2px; animation:eq 1.1s ease-in-out infinite}
-    .eq span:nth-child(1){height:55%; animation-duration:.9s}
-    .eq span:nth-child(2){height:90%; animation-duration:1.25s; animation-delay:.12s}
-    .eq span:nth-child(3){height:65%; animation-duration:1s; animation-delay:.3s}
-    .eq span:nth-child(4){height:100%; animation-duration:1.4s; animation-delay:.05s}
-    .eq span:nth-child(5){height:70%; animation-duration:1.15s; animation-delay:.22s}
-    .eq span:nth-child(6){height:85%; animation-duration:.95s; animation-delay:.4s}
-    .eq span:nth-child(7){height:50%; animation-duration:1.3s; animation-delay:.18s}
-    @keyframes eq{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
-    .eq span{transform-origin:bottom}
-    .filter-chips{display:flex; flex-wrap:wrap; gap:.55rem; margin-bottom:1.6rem}
-    .chip{
-      border:1px solid var(--line); background:rgba(255,255,255,.04); color:#e9e2d9;
-      padding:.55rem 1rem; border-radius:999px; cursor:pointer;
-      font-weight:800; font-size:.74rem; letter-spacing:.1em; text-transform:uppercase;
-      transition:background .2s ease, border-color .2s ease, color .2s ease;
-    }
-    .chip:hover{border-color:rgba(255,180,84,.6); color:#fff}
-    .chip.active{background:var(--red); border-color:var(--red); color:#fff}
-    .gallery-grid{grid-auto-flow:dense}
-    .gallery-item[hidden]{display:none}
-    .video-card{
-      position:relative; display:block; border-radius:18px; overflow:hidden; margin-bottom:1rem;
-      border:1px solid var(--line); text-decoration:none; color:#fff; min-height:300px;
-    }
-    .video-card img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.62) saturate(1.05); transition:transform .5s ease, filter .5s ease}
-    .video-card:hover img{transform:scale(1.04); filter:brightness(.72)}
-    .video-card-body{position:relative; padding:2rem; display:flex; flex-direction:column; gap:.5rem; justify-content:flex-end; min-height:300px; background:linear-gradient(0deg, rgba(0,0,0,.82), transparent 62%)}
-    .play-badge{
-      width:64px; height:64px; border-radius:50%; background:var(--red); color:#fff;
-      display:grid; place-items:center; font-size:1.35rem; padding-left:4px;
-      box-shadow:0 14px 40px rgba(227,38,54,.45); margin-bottom:.6rem;
-    }
-    .video-card h3{font-family:"Anton", Impact, sans-serif; font-weight:400; font-size:clamp(1.5rem, 3.4vw, 2.3rem); text-transform:uppercase; letter-spacing:.03em}
-    .video-card p{margin:0; color:#e7ded4; max-width:560px}
-    .video-card .event-tag{color:var(--amber)}
-    .lightbox-nav{
-      background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.3);
-      width:44px; height:44px; border-radius:50%; cursor:pointer; font-size:1.35rem; flex:0 0 auto;
-      display:grid; place-items:center; transition:background .2s ease;
-    }
-    .lightbox-nav:hover{background:var(--red)}
-    .lightbox-count{color:var(--muted); font-weight:800; font-size:.85rem; letter-spacing:.08em}
-    .event-card{cursor:pointer}
-    button.album-link{background:none; border:0; padding:0; cursor:pointer; text-align:left; font-family:inherit}
-    @media (max-width: 760px){
-      .video-card,.video-card-body{min-height:240px}
-      .eq{display:none}
-    }
-    @media (prefers-reduced-motion: reduce){
       .hero-bg img{animation:none}
-      .eq span{animation:none; transform:scaleY(.7)}
+      .rv-on .rv{opacity:1; transform:none}
     }
   </style>
 </head>
@@ -371,7 +371,7 @@
       <nav class="main-nav" id="menu" aria-label="Navegação principal" data-menu>
         <a href="#a-banda">A banda</a>
         <a href="#shows">Shows</a>
-        <a href="#galeria">Fotos &amp; Vídeos</a>
+        <a href="#galeria">Galeria</a>
         <a href="#integrantes">Integrantes</a>
         <a href="#contrate">Contato</a>
         <a class="nav-cta" href="https://wa.me/5535992473137?text=Ol%C3%A1!%20Quero%20informa%C3%A7%C3%B5es%20para%20contratar%20a%20Banda%20Sanidade%20Zero." target="_blank" rel="noreferrer">Contrate a banda</a>
@@ -380,17 +380,13 @@
   </header>
 
   <main id="conteudo">
-    <section class="hero" id="inicio" aria-label="Banda Sanidade Zero ao vivo no Pedrock">
+    <section class="hero" id="inicio" aria-label="Banda Sanidade Zero tocando ao vivo no Pedrock">
       <div class="hero-bg" aria-hidden="true">
-        <img src="assets/hero-pedrockinho.jpg" alt="">
+        <img src="assets/galeria-palco-pedrockinho.jpg" alt="" fetchpriority="high" decoding="async">
       </div>
       <canvas id="brasas" aria-hidden="true"></canvas>
       <div class="hero-glow" aria-hidden="true"></div>
       <div class="hero-inner">
-        <div class="hero-lockup">
-          <img src="assets/logo-sanidade-zero.jpg" alt="Logo oficial da Sanidade Zero">
-          <p><span>Rock raiz • Anos 70 &amp; 80</span> Energia de palco, repertório de clássicos e presença de verdade.</p>
-        </div>
         <p class="eyebrow">Banda de rock • Itajubá / MG</p>
         <h1>Sanidade<br><span class="zero">Zero</span></h1>
         <p class="hero-lead">O som que atravessa gerações, tocado ao vivo com a urgência de quem nasceu para o palco. <strong>Longa vida ao Rock N' Roll.</strong></p>
@@ -416,7 +412,7 @@
 
     <section class="section" id="a-banda">
       <div class="container">
-        <div class="section-head reveal">
+        <div class="section-head rv">
           <div>
             <p class="section-kicker">A banda</p>
             <h2>Rock sem<br><em>meio-termo</em></h2>
@@ -425,7 +421,7 @@
         </div>
 
         <div class="about-grid">
-          <div class="about-copy reveal">
+          <div class="about-copy rv">
             <p>A <strong>Sanidade Zero</strong> é uma banda de rock de <strong>Itajubá, no sul de Minas Gerais</strong>, formada por músicos apaixonados pela sonoridade direta e atemporal dos anos 70 e 80.</p>
             <p>O grupo leva para o palco riffs marcantes, refrões que todo mundo reconhece e a atmosfera dos grandes shows: volume, entrega e conexão com o público do primeiro ao último acorde.</p>
             <p>A trajetória já passa por eventos da Prefeitura, festivais como o Pedrock, encontros de carros antigos, aniversários, bares e cafés — sempre com a mesma assinatura: <strong>rock raiz, tocado ao vivo e sem economia de energia</strong>.</p>
@@ -436,29 +432,29 @@
               <li>Identidade visual e atitude inspiradas na era de ouro do rock.</li>
             </ul>
           </div>
-          <figure class="image-frame reveal" style="margin:0">
+          <figure class="image-frame rv" style="margin:0">
             <img src="assets/sobre-jazz-cafe.jpg" alt="Banda Sanidade Zero reunida no palco do Jazz Café" loading="lazy" decoding="async">
             <figcaption class="photo-stamp">Salve o Rock!</figcaption>
           </figure>
         </div>
 
         <div class="formats-grid" aria-label="Formatos de apresentação">
-          <article class="format-card reveal">
+          <article class="format-card rv">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" aria-hidden="true"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/><path d="M2 20h20"/></svg>
             <h3>Festivais e eventos públicos</h3>
             <p>Repertório amplo e energia de palco grande para praças, parques, festas municipais e programação cultural.</p>
           </article>
-          <article class="format-card reveal">
+          <article class="format-card rv">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" aria-hidden="true"><path d="M4 16l1.5-5A2 2 0 0 1 7.4 9.5h9.2a2 2 0 0 1 1.9 1.5L20 16"/><path d="M3 16h18v4H3z"/><circle cx="7" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/></svg>
             <h3>Encontros e cultura automotiva</h3>
             <p>Rock clássico na mesma frequência de motores, carros antigos e encontros que celebram outras épocas.</p>
           </article>
-          <article class="format-card reveal">
+          <article class="format-card rv">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" aria-hidden="true"><path d="M4 21h16"/><path d="M6 21v-7h12v7"/><path d="M12 14V9"/><path d="M12 9a2.2 2.2 0 1 0-2.2-2.2c0 1.4 2.2 2.2 2.2 2.2zm0 0a2.2 2.2 0 1 1 2.2-2.2C14.2 8.2 12 9 12 9z"/></svg>
             <h3>Aniversários e confraternizações</h3>
             <p>Uma trilha ao vivo para reunir gerações e transformar a festa em memória coletiva.</p>
           </article>
-          <article class="format-card reveal">
+          <article class="format-card rv">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" aria-hidden="true"><path d="M4 10h13v7a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M7 6c0 1-1 1.2-1 2M12 6c0 1-1 1.2-1 2"/></svg>
             <h3>Bares, pubs e cafés</h3>
             <p>O clássico formato de casa de música: perto do público, com clássicos que pedem coro e bis.</p>
@@ -469,16 +465,16 @@
 
     <section class="section alt" id="shows">
       <div class="container">
-        <div class="section-head reveal">
+        <div class="section-head rv">
           <div>
             <p class="section-kicker">Arquivo ao vivo</p>
             <h2>Shows &amp;<br><em>eventos</em></h2>
           </div>
-          <p>Registros reais da banda em palcos, festivais, ensaios e encontros. Toque em um card para ver as fotos do evento aqui mesmo, no catálogo de mídia.</p>
+          <p>Registros reais da banda em palcos, festivais, ensaios e encontros. Toque em um card para ver as fotos do evento aqui mesmo, na galeria.</p>
         </div>
 
         <div class="events-grid">
-          <article class="event-card featured reveal">
+          <article class="event-card featured rv">
             <img src="assets/evento-pedrock-fotografo.jpg" alt="Sanidade Zero tocando em palco aberto durante o Pedrock" loading="lazy" decoding="async">
             <div class="event-body">
               <span class="event-tag">Festival • Palco aberto</span>
@@ -488,7 +484,7 @@
             </div>
           </article>
 
-          <article class="event-card reveal">
+          <article class="event-card rv">
             <img src="assets/evento-pedrock.jpg" alt="Bateria da Sanidade Zero no palco do Pedrock" loading="lazy" decoding="async">
             <div class="event-body">
               <span class="event-tag">Festival</span>
@@ -498,7 +494,7 @@
             </div>
           </article>
 
-          <article class="event-card reveal">
+          <article class="event-card rv">
             <img src="assets/evento-jazz-cafe.jpg" alt="Sanidade Zero no palco do Jazz Café" loading="lazy" decoding="async">
             <div class="event-body">
               <span class="event-tag">Casa de música</span>
@@ -508,7 +504,7 @@
             </div>
           </article>
 
-          <article class="event-card reveal">
+          <article class="event-card rv">
             <img src="assets/evento-dia-das-criancas.jpg" alt="Apresentação da Sanidade Zero em evento do Dia das Crianças" loading="lazy" decoding="async">
             <div class="event-body">
               <span class="event-tag">Prefeitura • Parque</span>
@@ -518,7 +514,7 @@
             </div>
           </article>
 
-          <article class="event-card reveal">
+          <article class="event-card rv">
             <img src="assets/evento-carros-antigos.jpg" alt="Sanidade Zero em palco de encontro de carros antigos" loading="lazy" decoding="async">
             <div class="event-body">
               <span class="event-tag">Cultura automotiva</span>
@@ -528,7 +524,7 @@
             </div>
           </article>
 
-          <article class="event-card reveal">
+          <article class="event-card rv">
             <img src="assets/evento-aniversario-oliver.jpg" alt="Sanidade Zero tocando em apresentação de aniversário" loading="lazy" decoding="async">
             <div class="event-body">
               <span class="event-tag">Evento privado</span>
@@ -538,7 +534,7 @@
             </div>
           </article>
 
-          <article class="event-card reveal">
+          <article class="event-card rv">
             <img src="assets/evento-inscricao-pedrock.jpg" alt="Palco iluminado durante o Pedrock" loading="lazy" decoding="async">
             <div class="event-body">
               <span class="event-tag">Festival • Bastidores</span>
@@ -548,7 +544,7 @@
             </div>
           </article>
 
-          <article class="event-card reveal">
+          <article class="event-card rv">
             <img src="assets/evento-ensaios.jpg" alt="Integrantes da Sanidade Zero durante ensaio" loading="lazy" decoding="async">
             <div class="event-body">
               <span class="event-tag">Preparação</span>
@@ -561,110 +557,103 @@
       </div>
     </section>
 
-        <section class="section" id="galeria">
+    <section class="section" id="galeria">
       <div class="container">
-        <div class="section-head reveal">
+        <div class="section-head rv">
           <div>
-            <p class="section-kicker">Catálogo de mídia</p>
-            <h2>Fotos &amp;<br><em>vídeos</em></h2>
+            <p class="section-kicker">Catálogo interno</p>
+            <h2>Galeria<br><em>ao vivo</em></h2>
           </div>
-          <p>Tudo dentro do site: fotos reais dos álbuns da banda, organizadas por evento. Use os filtros, clique para ampliar e navegue com as setas.</p>
+          <p>Tudo dentro do site: fotos reais da banda, organizadas por evento. Use os filtros, clique para ampliar e navegue com as setas.</p>
         </div>
 
-        <a class="video-card reveal" href="https://www.instagram.com/sanidadezero.banda" target="_blank" rel="noreferrer" aria-label="Assistir aos vídeos da banda no Instagram">
-          <img src="assets/galeria-pedrockinho.jpg" alt="Sanidade Zero tocando ao vivo para o público no Pedrock" loading="lazy" decoding="async">
-          <div class="video-card-body">
-            <span class="play-badge" aria-hidden="true">▶</span>
-            <span class="event-tag">Vídeos ao vivo</span>
-            <h3>A banda em movimento</h3>
-            <p>Os vídeos dos shows ficam no Instagram oficial da banda — toque para assistir às apresentações e aos bastidores.</p>
+        <div class="gallery-tools">
+          <div class="filter-chips" role="group" aria-label="Filtrar fotos por evento">
+            <button class="chip active" type="button" data-filter="todos" aria-pressed="true">Todas</button>
+            <button class="chip" type="button" data-filter="pedrock" aria-pressed="false">Pedrock</button>
+            <button class="chip" type="button" data-filter="dia-das-criancas" aria-pressed="false">Dia das Crianças</button>
+            <button class="chip" type="button" data-filter="carros-antigos" aria-pressed="false">Carros Antigos</button>
+            <button class="chip" type="button" data-filter="aniversario-oliver" aria-pressed="false">Aniversário Oliver</button>
+            <button class="chip" type="button" data-filter="jazz-cafe" aria-pressed="false">Jazz Café</button>
+            <button class="chip" type="button" data-filter="ensaios" aria-pressed="false">Ensaios</button>
           </div>
-        </a>
-
-        <div class="filter-chips reveal" role="group" aria-label="Filtrar fotos por evento">
-          <button class="chip active" type="button" data-filter="todos">Todas</button>
-          <button class="chip" type="button" data-filter="pedrock">Pedrock</button>
-          <button class="chip" type="button" data-filter="dia-das-criancas">Dia das Crianças</button>
-          <button class="chip" type="button" data-filter="carros-antigos">Carros Antigos</button>
-          <button class="chip" type="button" data-filter="aniversario-oliver">Aniversário Oliver</button>
-          <button class="chip" type="button" data-filter="jazz-cafe">Jazz Café</button>
-          <button class="chip" type="button" data-filter="ensaios">Ensaios</button>
+          <p class="gallery-count" data-gallery-count aria-live="polite"><strong>19</strong> fotos</p>
         </div>
 
         <div class="gallery-grid" data-gallery>
-          <figure class="gallery-item wide reveal" tabindex="0" role="button" data-event="pedrock" data-full="assets/galeria-palco-pedrockinho.jpg" data-caption="Pedrock — a banda em ação no palco" aria-label="Ampliar foto: Pedrock, a banda em ação no palco" style="margin:0">
+          <figure class="gallery-item wide" tabindex="0" role="button" data-event="pedrock" data-full="assets/galeria-palco-pedrockinho.jpg" data-caption="Pedrock — a banda em ação no palco" aria-label="Ampliar foto: Pedrock, a banda em ação no palco">
             <img src="assets/galeria-palco-pedrockinho.jpg" alt="Sanidade Zero tocando no palco do Pedrock" loading="lazy" decoding="async">
             <figcaption><span>Pedrock</span> A banda em ação</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="pedrock" data-full="assets/hero-pedrockinho.jpg" data-caption="Pedrock — plano aberto do show" aria-label="Ampliar foto: Pedrock, plano aberto do show" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="pedrock" data-full="assets/hero-pedrockinho.jpg" data-caption="Pedrock — plano aberto do show" aria-label="Ampliar foto: Pedrock, plano aberto do show">
             <img src="assets/hero-pedrockinho.jpg" alt="Sanidade Zero em plano aberto durante o Pedrock" loading="lazy" decoding="async">
             <figcaption><span>Pedrock</span> Plano aberto do show</figcaption>
           </figure>
-          <figure class="gallery-item tall reveal" tabindex="0" role="button" data-event="pedrock" data-full="assets/galeria-bateria-pedrock.jpg" data-caption="Pedrock — bateria e painel do festival" aria-label="Ampliar foto: Pedrock, bateria e painel do festival" style="margin:0">
+          <figure class="gallery-item tall" tabindex="0" role="button" data-event="pedrock" data-full="assets/galeria-bateria-pedrock.jpg" data-caption="Pedrock — bateria e painel do festival" aria-label="Ampliar foto: Pedrock, bateria e painel do festival">
             <img src="assets/galeria-bateria-pedrock.jpg" alt="Baterista da Sanidade Zero diante do painel do Pedrock" loading="lazy" decoding="async">
             <figcaption><span>Pedrock</span> No comando da bateria</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="pedrock" data-full="assets/evento-pedrock.jpg" data-caption="Pedrock 26 — bateria no palco do festival" aria-label="Ampliar foto: Pedrock 26, bateria no palco" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="pedrock" data-full="assets/evento-pedrock.jpg" data-caption="Pedrock 26 — bateria no palco do festival" aria-label="Ampliar foto: Pedrock 26, bateria no palco">
             <img src="assets/evento-pedrock.jpg" alt="Bateria da Sanidade Zero no palco do Pedrock" loading="lazy" decoding="async">
             <figcaption><span>Pedrock</span> Bateria no palco</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="pedrock" data-full="assets/evento-pedrock-fotografo.jpg" data-caption="Pedrock — vista ampla do palco e do público" aria-label="Ampliar foto: Pedrock, vista ampla do palco" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="pedrock" data-full="assets/evento-pedrock-fotografo.jpg" data-caption="Pedrock — vista ampla do palco e do público" aria-label="Ampliar foto: Pedrock, vista ampla do palco">
             <img src="assets/evento-pedrock-fotografo.jpg" alt="Vista ampla do palco da Sanidade Zero no Pedrock" loading="lazy" decoding="async">
             <figcaption><span>Pedrock</span> Vista ampla do palco</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="pedrock" data-full="assets/galeria-bastidores-pedrock.jpg" data-caption="Pedrock — bastidores antes do show" aria-label="Ampliar foto: Pedrock, bastidores" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="pedrock" data-full="assets/galeria-bastidores-pedrock.jpg" data-caption="Pedrock — bastidores antes do show" aria-label="Ampliar foto: Pedrock, bastidores">
             <img src="assets/galeria-bastidores-pedrock.jpg" alt="Integrantes da banda nos bastidores do Pedrock" loading="lazy" decoding="async">
             <figcaption><span>Pedrock</span> Bastidores do festival</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="pedrock" data-full="assets/evento-inscricao-pedrock.jpg" data-caption="Pedrock — palco iluminado à noite" aria-label="Ampliar foto: Pedrock, palco iluminado à noite" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="pedrock" data-full="assets/evento-inscricao-pedrock.jpg" data-caption="Pedrock — palco iluminado à noite" aria-label="Ampliar foto: Pedrock, palco iluminado à noite">
             <img src="assets/evento-inscricao-pedrock.jpg" alt="Palco iluminado durante o Pedrock" loading="lazy" decoding="async">
             <figcaption><span>Pedrock</span> Palco iluminado à noite</figcaption>
           </figure>
-          <figure class="gallery-item wide reveal" tabindex="0" role="button" data-event="pedrock" data-full="assets/galeria-pedrockinho.jpg" data-caption="Pedrock — banda e público em plano aberto" aria-label="Ampliar foto: Pedrock, banda e público" style="margin:0">
+          <figure class="gallery-item wide" tabindex="0" role="button" data-event="pedrock" data-full="assets/galeria-pedrockinho.jpg" data-caption="Pedrock — banda e público em plano aberto" aria-label="Ampliar foto: Pedrock, banda e público">
             <img src="assets/galeria-pedrockinho.jpg" alt="Sanidade Zero tocando para o público no Pedrock" loading="lazy" decoding="async">
             <figcaption><span>Pedrock</span> Banda e público</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="dia-das-criancas" data-full="assets/evento-dia-das-criancas.jpg" data-caption="Dia das Crianças — apresentação em evento da Prefeitura" aria-label="Ampliar foto: Dia das Crianças, evento da Prefeitura" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="dia-das-criancas" data-full="assets/evento-dia-das-criancas.jpg" data-caption="Dia das Crianças — apresentação em evento da Prefeitura" aria-label="Ampliar foto: Dia das Crianças, evento da Prefeitura">
             <img src="assets/evento-dia-das-criancas.jpg" alt="Apresentação da Sanidade Zero em evento do Dia das Crianças" loading="lazy" decoding="async">
             <figcaption><span>Dia das Crianças</span> Evento da Prefeitura</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="dia-das-criancas" data-full="assets/galeria-dia-das-criancas.jpg" data-caption="Dia das Crianças — apresentação em palco aberto" aria-label="Ampliar foto: Dia das Crianças, palco aberto" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="dia-das-criancas" data-full="assets/galeria-dia-das-criancas.jpg" data-caption="Dia das Crianças — apresentação em palco aberto" aria-label="Ampliar foto: Dia das Crianças, palco aberto">
             <img src="assets/galeria-dia-das-criancas.jpg" alt="Sanidade Zero se apresentando no Dia das Crianças" loading="lazy" decoding="async">
             <figcaption><span>Dia das Crianças</span> Palco aberto no parque</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="carros-antigos" data-full="assets/evento-carros-antigos.jpg" data-caption="Encontro de Carros Antigos — show no palco do encontro" aria-label="Ampliar foto: Encontro de Carros Antigos, show" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="carros-antigos" data-full="assets/evento-carros-antigos.jpg" data-caption="Encontro de Carros Antigos — show no palco do encontro" aria-label="Ampliar foto: Encontro de Carros Antigos, show">
             <img src="assets/evento-carros-antigos.jpg" alt="Sanidade Zero em palco de encontro de carros antigos" loading="lazy" decoding="async">
             <figcaption><span>Carros antigos</span> Show no encontro</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="carros-antigos" data-full="assets/galeria-carros-antigos.jpg" data-caption="Encontro de Carros Antigos — vista lateral do palco" aria-label="Ampliar foto: Encontro de Carros Antigos, vista do palco" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="carros-antigos" data-full="assets/galeria-carros-antigos.jpg" data-caption="Encontro de Carros Antigos — vista lateral do palco" aria-label="Ampliar foto: Encontro de Carros Antigos, vista do palco">
             <img src="assets/galeria-carros-antigos.jpg" alt="Palco da Sanidade Zero em encontro de carros antigos" loading="lazy" decoding="async">
             <figcaption><span>Carros antigos</span> Vista do palco</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="aniversario-oliver" data-full="assets/evento-aniversario-oliver.jpg" data-caption="Aniversário Oliver — apresentação ao ar livre" aria-label="Ampliar foto: Aniversário Oliver, apresentação" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="aniversario-oliver" data-full="assets/evento-aniversario-oliver.jpg" data-caption="Aniversário Oliver — apresentação ao ar livre" aria-label="Ampliar foto: Aniversário Oliver, apresentação">
             <img src="assets/evento-aniversario-oliver.jpg" alt="Sanidade Zero tocando em apresentação de aniversário" loading="lazy" decoding="async">
             <figcaption><span>Aniversário Oliver</span> Apresentação ao ar livre</figcaption>
           </figure>
-          <figure class="gallery-item tall reveal" tabindex="0" role="button" data-event="aniversario-oliver" data-full="assets/galeria-show-oliver.jpg" data-caption="Aniversário Oliver — vocal e banda ao ar livre" aria-label="Ampliar foto: Aniversário Oliver, vocal e banda" style="margin:0">
+          <figure class="gallery-item tall" tabindex="0" role="button" data-event="aniversario-oliver" data-full="assets/galeria-show-oliver.jpg" data-caption="Aniversário Oliver — vocal e banda ao ar livre" aria-label="Ampliar foto: Aniversário Oliver, vocal e banda">
             <img src="assets/galeria-show-oliver.jpg" alt="Apresentação da Sanidade Zero em aniversário ao ar livre" loading="lazy" decoding="async">
             <figcaption><span>Aniversário Oliver</span> Rock ao ar livre</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="jazz-cafe" data-full="assets/evento-jazz-cafe.jpg" data-caption="Jazz Café — a banda no palco da casa" aria-label="Ampliar foto: Jazz Café, banda no palco" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="jazz-cafe" data-full="assets/evento-jazz-cafe.jpg" data-caption="Jazz Café — a banda no palco da casa" aria-label="Ampliar foto: Jazz Café, banda no palco">
             <img src="assets/evento-jazz-cafe.jpg" alt="Sanidade Zero no palco do Jazz Café" loading="lazy" decoding="async">
             <figcaption><span>Jazz Café</span> A banda no palco</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="jazz-cafe" data-full="assets/galeria-bateria-jazz.jpg" data-caption="Jazz Café — bateria sob luz verde" aria-label="Ampliar foto: Jazz Café, bateria sob luz verde" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="jazz-cafe" data-full="assets/galeria-bateria-jazz.jpg" data-caption="Jazz Café — bateria sob luz verde" aria-label="Ampliar foto: Jazz Café, bateria sob luz verde">
             <img src="assets/galeria-bateria-jazz.jpg" alt="Bateria da Sanidade Zero no Jazz Café" loading="lazy" decoding="async">
             <figcaption><span>Jazz Café</span> Luz, palco e bateria</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="jazz-cafe" data-full="assets/sobre-jazz-cafe.jpg" data-caption="Jazz Café — banda reunida no palco" aria-label="Ampliar foto: Jazz Café, banda reunida" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="jazz-cafe" data-full="assets/sobre-jazz-cafe.jpg" data-caption="Jazz Café — banda reunida no palco" aria-label="Ampliar foto: Jazz Café, banda reunida">
             <img src="assets/sobre-jazz-cafe.jpg" alt="Banda Sanidade Zero reunida no palco do Jazz Café" loading="lazy" decoding="async">
             <figcaption><span>Jazz Café</span> Banda reunida</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="ensaios" data-full="assets/evento-ensaios.jpg" data-caption="Ensaios — preparação e repertório" aria-label="Ampliar foto: Ensaios, preparação" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="ensaios" data-full="assets/evento-ensaios.jpg" data-caption="Ensaios — preparação e repertório" aria-label="Ampliar foto: Ensaios, preparação">
             <img src="assets/evento-ensaios.jpg" alt="Integrantes da Sanidade Zero durante ensaio" loading="lazy" decoding="async">
             <figcaption><span>Ensaios</span> Preparação e repertório</figcaption>
           </figure>
-          <figure class="gallery-item reveal" tabindex="0" role="button" data-event="ensaios" data-full="assets/banda-ensaio.jpg" data-caption="Ensaios — os quatro integrantes em retrato" aria-label="Ampliar foto: Ensaios, retrato da banda" style="margin:0">
+          <figure class="gallery-item" tabindex="0" role="button" data-event="ensaios" data-full="assets/banda-ensaio.jpg" data-caption="Ensaios — os quatro integrantes em retrato" aria-label="Ampliar foto: Ensaios, retrato da banda">
             <img src="assets/banda-ensaio.jpg" alt="Os quatro integrantes da Sanidade Zero em retrato de ensaio" loading="lazy" decoding="async">
             <figcaption><span>Ensaios</span> Retrato da banda</figcaption>
           </figure>
@@ -672,9 +661,9 @@
       </div>
     </section>
 
-<section class="section alt" id="integrantes">
+    <section class="section alt" id="integrantes">
       <div class="container">
-        <div class="section-head reveal">
+        <div class="section-head rv">
           <div>
             <p class="section-kicker">Formação</p>
             <h2>Quatro nomes,<br><em>uma voltagem</em></h2>
@@ -683,23 +672,23 @@
         </div>
 
         <div class="members-layout">
-          <figure class="members-photo reveal" style="margin:0">
+          <figure class="members-photo rv" style="margin:0">
             <img src="assets/banda-ensaio.jpg" alt="Os quatro integrantes da Sanidade Zero em retrato de ensaio" loading="lazy" decoding="async">
           </figure>
           <div class="members-grid">
-            <article class="member-card reveal">
+            <article class="member-card rv">
               <span class="member-initial" aria-hidden="true">F</span>
-              <div><h3>Fernandinho</h3><p>Sanidade Zero</p></div>
+              <div><h3>Fernandinho</h3><p>Vocal</p></div>
             </article>
-            <article class="member-card reveal">
+            <article class="member-card rv">
               <span class="member-initial" aria-hidden="true">E</span>
-              <div><h3>Eduardo</h3><p>Sanidade Zero</p></div>
+              <div><h3>Eduardo</h3><p>Guitarra</p></div>
             </article>
-            <article class="member-card reveal">
+            <article class="member-card rv">
               <span class="member-initial" aria-hidden="true">G</span>
-              <div><h3>Guilherme</h3><p>Sanidade Zero</p></div>
+              <div><h3>Guilherme</h3><p>Guitarra</p></div>
             </article>
-            <article class="member-card reveal">
+            <article class="member-card rv">
               <span class="member-initial" aria-hidden="true">L</span>
               <div><h3>Lorenzo</h3><p>Bateria</p></div>
             </article>
@@ -710,7 +699,7 @@
 
     <section class="section" id="contrate">
       <div class="container">
-        <div class="booking reveal">
+        <div class="booking rv">
           <p class="section-kicker">Agenda e contratação</p>
           <h2>Leve a Sanidade Zero para o <em>seu evento</em></h2>
           <p>Festival, festa da cidade, encontro de carros antigos, aniversário, bar ou café: fale com a banda, consulte disponibilidade e monte a apresentação para o seu público.</p>
@@ -758,109 +747,110 @@
       "name": "Itajubá, Minas Gerais, Brasil"
     },
     "member": [
-      {"@type": "Person", "name": "Fernandinho"},
-      {"@type": "Person", "name": "Eduardo"},
-      {"@type": "Person", "name": "Guilherme"},
-      {"@type": "Person", "name": "Lorenzo"}
+      {"@type": "Person", "name": "Fernandinho", "role": "Vocal"},
+      {"@type": "Person", "name": "Eduardo", "role": "Guitarra"},
+      {"@type": "Person", "name": "Guilherme", "role": "Guitarra"},
+      {"@type": "Person", "name": "Lorenzo", "role": "Bateria"}
     ],
     "sameAs": ["https://www.instagram.com/sanidadezero.banda"]
   }
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
   <script>
     (() => {
+      'use strict';
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const header = document.querySelector('.site-header');
-      const onScrollHeader = () => header.classList.toggle('scrolled', window.scrollY > 24);
-      onScrollHeader();
-      window.addEventListener('scroll', onScrollHeader, { passive: true });
+      /* Cada módulo roda isolado: uma falha nunca derruba os demais (lição da v2). */
+      const modulo = (nome, fn) => { try { fn(); } catch (erro) { console.warn('Sanidade Zero — módulo ' + nome + ':', erro); } };
 
-      const menuButton = document.querySelector('[data-menu-button]');
-      const menu = document.querySelector('[data-menu]');
-      menuButton.addEventListener('click', () => {
-        const open = menu.classList.toggle('open');
-        menuButton.setAttribute('aria-expanded', String(open));
-        menuButton.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
-      });
-      menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-        menu.classList.remove('open');
-        menuButton.setAttribute('aria-expanded', 'false');
-      }));
+      /* ----- Header com fundo ao rolar + menu mobile ----- */
+      modulo('header/menu', () => {
+        const header = document.querySelector('.site-header');
+        const onScrollHeader = () => header.classList.toggle('scrolled', window.scrollY > 24);
+        onScrollHeader();
+        window.addEventListener('scroll', onScrollHeader, { passive: true });
 
-      /* ----- Revelação das seções: GSAP ScrollTrigger, com fallback ----- */
-      const revealItems = document.querySelectorAll('.reveal');
-      if (!reducedMotion && window.gsap && window.ScrollTrigger) {
-        gsap.registerPlugin(ScrollTrigger);
-        revealItems.forEach(item => {
-          gsap.fromTo(item, { opacity: 0, y: 30 }, {
-            opacity: 1, y: 0, duration: 0.85, ease: 'power3.out',
-            scrollTrigger: { trigger: item, start: 'top 88%', once: true }
-          });
+        const menuButton = document.querySelector('[data-menu-button]');
+        const menu = document.querySelector('[data-menu]');
+        menuButton.addEventListener('click', () => {
+          const open = menu.classList.toggle('open');
+          menuButton.setAttribute('aria-expanded', String(open));
+          menuButton.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
         });
-      } else if ('IntersectionObserver' in window && !reducedMotion) {
+        menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+          menu.classList.remove('open');
+          menuButton.setAttribute('aria-expanded', 'false');
+        }));
+      });
+
+      /* ----- Reveal progressivo -----
+         O estado invisível (.rv-on .rv) só passa a existir DEPOIS que o
+         IntersectionObserver é criado com sucesso. Sem IO, com erro ou com
+         reduced-motion, nenhum conteúdo é escondido. */
+      modulo('reveal', () => {
+        const itens = document.querySelectorAll('.rv');
+        if (!itens.length) return;
+        if (reducedMotion || !('IntersectionObserver' in window)) return; // tudo visível
+        document.documentElement.classList.add('rv-on');
         const observer = new IntersectionObserver(entries => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
+              entry.target.classList.add('in');
               observer.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.12 });
-        revealItems.forEach(item => observer.observe(item));
-      } else {
-        revealItems.forEach(item => item.classList.add('visible'));
-      }
+        }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+        itens.forEach(item => observer.observe(item));
+      });
 
-      /* ----- Hero imersivo: parallax de mouse + scroll e luz de palco ----- */
-      const hero = document.querySelector('.hero');
-      const heroBg = document.querySelector('.hero-bg');
-      const heroLockup = document.querySelector('.hero-lockup');
-      if (hero && !reducedMotion) {
-        let mx = 0, my = 0, tx = 0, ty = 0, rafId = null;
-        const render = () => {
-          tx += (mx - tx) * 0.06;
-          ty += (my - ty) * 0.06;
-          const sy = Math.min(window.scrollY, window.innerHeight);
-          heroBg.style.transform = `translate3d(${tx * -14}px, ${ty * -10 + sy * 0.22}px, 0) scale(1.06)`;
-          if (heroLockup) heroLockup.style.transform = `translate3d(${tx * 8}px, ${ty * 6}px, 0)`;
-          if (Math.abs(mx - tx) > 0.001 || Math.abs(my - ty) > 0.001) {
-            rafId = requestAnimationFrame(render);
-          } else { rafId = null; }
+      /* ----- Hero: parallax de scroll + luz de palco que segue o mouse ----- */
+      modulo('hero', () => {
+        const hero = document.querySelector('.hero');
+        const heroBg = document.querySelector('.hero-bg');
+        if (!hero || reducedMotion) return;
+        let pendente = false;
+        const aplicarParallax = () => {
+          pendente = false;
+          const y = Math.min(window.scrollY, window.innerHeight);
+          heroBg.style.transform = 'translate3d(0,' + (y * 0.12).toFixed(1) + 'px,0)';
         };
-        hero.addEventListener('mousemove', event => {
-          const rect = hero.getBoundingClientRect();
-          mx = (event.clientX - rect.left) / rect.width - 0.5;
-          my = (event.clientY - rect.top) / rect.height - 0.5;
-          hero.style.setProperty('--mx', `${(mx + 0.5) * 100}%`);
-          hero.style.setProperty('--my', `${(my + 0.5) * 100}%`);
-          if (!rafId) rafId = requestAnimationFrame(render);
-        });
-        window.addEventListener('scroll', () => { if (!rafId) rafId = requestAnimationFrame(render); }, { passive: true });
-      }
+        window.addEventListener('scroll', () => {
+          if (!pendente) { pendente = true; requestAnimationFrame(aplicarParallax); }
+        }, { passive: true });
+        if (window.matchMedia('(pointer: fine)').matches) {
+          hero.addEventListener('mousemove', event => {
+            const rect = hero.getBoundingClientRect();
+            hero.style.setProperty('--mx', (((event.clientX - rect.left) / rect.width) * 100).toFixed(1) + '%');
+            hero.style.setProperty('--my', (((event.clientY - rect.top) / rect.height) * 100).toFixed(1) + '%');
+          });
+        }
+      });
 
-      /* ----- Partículas de brasas subindo (canvas leve) ----- */
-      const canvas = document.getElementById('brasas');
-      if (canvas && !reducedMotion) {
+      /* ----- Brasas subindo (canvas leve, pausa fora da tela) ----- */
+      modulo('brasas', () => {
+        const canvas = document.getElementById('brasas');
+        const hero = document.querySelector('.hero');
+        if (!canvas || !hero || reducedMotion) return;
         const ctx = canvas.getContext('2d');
-        let W = 0, H = 0, parts = [], running = true;
-        const resize = () => {
-          W = canvas.width = hero.offsetWidth;
-          H = canvas.height = hero.offsetHeight;
-          const target = W < 760 ? 22 : Math.min(80, Math.floor(W / 16));
-          parts = Array.from({ length: target }, () => spawn(true));
-        };
-        const spawn = initial => ({
+        if (!ctx) return;
+        let W = 0, H = 0, parts = [], rodando = true;
+        const spawn = inicial => ({
           x: Math.random() * W,
-          y: initial ? Math.random() * H : H + 8,
+          y: inicial ? Math.random() * H : H + 8,
           r: 0.8 + Math.random() * 2.1,
           s: 0.25 + Math.random() * 0.85,
           drift: Math.random() * Math.PI * 2,
           hue: Math.random() < 0.72 ? '227,38,54' : '255,180,84',
           a: 0.25 + Math.random() * 0.55
         });
+        const resize = () => {
+          W = canvas.width = hero.offsetWidth;
+          H = canvas.height = hero.offsetHeight;
+          const alvo = W < 760 ? 22 : Math.min(64, Math.floor(W / 20));
+          parts = Array.from({ length: alvo }, () => spawn(true));
+        };
         const tick = () => {
-          if (running) {
+          if (rodando) {
             ctx.clearRect(0, 0, W, H);
             for (const p of parts) {
               p.y -= p.s;
@@ -870,108 +860,143 @@
               const flicker = 0.75 + Math.sin(p.drift * 3) * 0.25;
               ctx.beginPath();
               ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-              ctx.fillStyle = `rgba(${p.hue},${(p.a * flicker).toFixed(3)})`;
-              ctx.shadowColor = `rgba(${p.hue},.8)`;
-              ctx.shadowBlur = 6;
+              ctx.fillStyle = 'rgba(' + p.hue + ',' + (p.a * flicker).toFixed(3) + ')';
               ctx.fill();
             }
-            ctx.shadowBlur = 0;
           }
           requestAnimationFrame(tick);
         };
         resize();
         window.addEventListener('resize', resize);
-        new IntersectionObserver(([e]) => { running = e.isIntersecting; }).observe(hero);
+        new IntersectionObserver(([e]) => { rodando = e.isIntersecting; }).observe(hero);
         requestAnimationFrame(tick);
-      }
-
-      /* ----- Catálogo: filtros por evento ----- */
-      const chips = document.querySelectorAll('[data-filter]');
-      const items = Array.from(document.querySelectorAll('[data-gallery] .gallery-item'));
-      const applyFilter = key => {
-        chips.forEach(chip => chip.classList.toggle('active', chip.dataset.filter === key));
-        items.forEach(item => { item.hidden = key !== 'todos' && item.dataset.event !== key; });
-      };
-      chips.forEach(chip => chip.addEventListener('click', () => applyFilter(chip.dataset.filter)));
-
-      /* ----- Cards de shows: filtram o catálogo e rolam até ele ----- */
-      document.querySelectorAll('[data-show-photos]').forEach(button => {
-        button.addEventListener('click', event => {
-          event.stopPropagation();
-          applyFilter(button.dataset.showPhotos);
-          document.getElementById('galeria').scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
-        });
-      });
-      document.querySelectorAll('.event-card').forEach(card => {
-        card.addEventListener('click', () => {
-          const button = card.querySelector('[data-show-photos]');
-          if (button) button.click();
-        });
       });
 
-      /* ----- Lightbox com setas, contador e teclado ----- */
-      const lightbox = document.querySelector('[data-lightbox]');
-      const lightboxImg = document.querySelector('[data-lightbox-img]');
-      const lightboxCaption = document.querySelector('[data-lightbox-caption]');
-      const lightboxCount = document.querySelector('[data-lightbox-count]');
-      const closeButton = document.querySelector('[data-lightbox-close]');
-      const prevButton = document.querySelector('[data-lightbox-prev]');
-      const nextButton = document.querySelector('[data-lightbox-next]');
-      let lastFocus = null;
-      let currentList = [];
-      let currentIndex = 0;
+      /* ----- Galeria: filtros por evento -----
+         Os itens NUNCA dependem de reveal: o filtro só alterna `hidden` e
+         reaplica uma animação CSS curta de entrada. Impossível ficar invisível. */
+      const galeria = { filtroAtual: 'todos' };
+      modulo('galeria', () => {
+        const chips = Array.from(document.querySelectorAll('[data-filter]'));
+        const items = Array.from(document.querySelectorAll('[data-gallery] .gallery-item'));
+        const contador = document.querySelector('[data-gallery-count]');
+        const chavesValidas = new Set(chips.map(c => c.dataset.filter));
 
-      const showCurrent = () => {
-        const item = currentList[currentIndex];
-        if (!item) return;
-        lightboxImg.src = item.dataset.full;
-        lightboxImg.alt = item.querySelector('img').alt;
-        lightboxCaption.textContent = item.dataset.caption || '';
-        lightboxCount.textContent = `${currentIndex + 1} / ${currentList.length}`;
-      };
-      const openLightbox = item => {
-        currentList = items.filter(i => !i.hidden);
-        currentIndex = Math.max(0, currentList.indexOf(item));
-        lastFocus = document.activeElement;
-        showCurrent();
-        lightbox.classList.add('open');
-        lightbox.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        closeButton.focus();
-      };
-      const closeLightbox = () => {
-        lightbox.classList.remove('open');
-        lightbox.setAttribute('aria-hidden', 'true');
-        lightboxImg.src = '';
-        document.body.style.overflow = '';
-        if (lastFocus) lastFocus.focus();
-      };
-      const step = dir => {
-        if (!currentList.length) return;
-        currentIndex = (currentIndex + dir + currentList.length) % currentList.length;
-        showCurrent();
-      };
-
-      items.forEach(item => {
-        item.addEventListener('click', () => openLightbox(item));
-        item.addEventListener('keydown', event => {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            openLightbox(item);
+        const applyFilter = (key, atualizarUrl = true) => {
+          if (!chavesValidas.has(key)) key = 'todos';
+          galeria.filtroAtual = key;
+          chips.forEach(chip => {
+            const ativo = chip.dataset.filter === key;
+            chip.classList.toggle('active', ativo);
+            chip.setAttribute('aria-pressed', String(ativo));
+          });
+          let visiveis = 0;
+          items.forEach(item => {
+            const mostrar = key === 'todos' || item.dataset.event === key;
+            item.hidden = !mostrar;
+            if (mostrar) {
+              visiveis++;
+              item.classList.remove('pop');
+              void item.offsetWidth; // reinicia a animação de entrada
+              item.classList.add('pop');
+            }
+          });
+          if (contador) contador.innerHTML = '<strong>' + visiveis + '</strong> ' + (visiveis === 1 ? 'foto' : 'fotos');
+          if (atualizarUrl && window.history && history.replaceState) {
+            const url = key === 'todos' ? window.location.pathname : '?filtro=' + encodeURIComponent(key);
+            history.replaceState(null, '', url);
           }
+        };
+        galeria.applyFilter = applyFilter;
+
+        chips.forEach(chip => chip.addEventListener('click', () => applyFilter(chip.dataset.filter)));
+
+        /* Cards de shows: aplicam o filtro e rolam até a galeria (tudo interno) */
+        document.querySelectorAll('[data-show-photos]').forEach(button => {
+          button.addEventListener('click', event => {
+            event.stopPropagation();
+            applyFilter(button.dataset.showPhotos);
+            document.getElementById('galeria').scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
+          });
         });
+        document.querySelectorAll('.event-card').forEach(card => {
+          card.addEventListener('click', () => {
+            const button = card.querySelector('[data-show-photos]');
+            if (button) button.click();
+          });
+        });
+
+        /* Deep link: ?filtro=<evento> já abre a galeria filtrada (e valida a correção) */
+        const inicial = new URLSearchParams(window.location.search).get('filtro');
+        if (inicial && chavesValidas.has(inicial)) applyFilter(inicial, false);
       });
-      closeButton.addEventListener('click', closeLightbox);
-      prevButton.addEventListener('click', () => step(-1));
-      nextButton.addEventListener('click', () => step(1));
-      lightbox.addEventListener('click', event => {
-        if (event.target === lightbox) closeLightbox();
-      });
-      document.addEventListener('keydown', event => {
-        if (!lightbox.classList.contains('open')) return;
-        if (event.key === 'Escape') closeLightbox();
-        if (event.key === 'ArrowLeft') step(-1);
-        if (event.key === 'ArrowRight') step(1);
+
+      /* ----- Lightbox com setas, contador e teclado (restrito ao filtro ativo) ----- */
+      modulo('lightbox', () => {
+        const items = Array.from(document.querySelectorAll('[data-gallery] .gallery-item'));
+        const lightbox = document.querySelector('[data-lightbox]');
+        const lightboxImg = document.querySelector('[data-lightbox-img]');
+        const lightboxCaption = document.querySelector('[data-lightbox-caption]');
+        const lightboxCount = document.querySelector('[data-lightbox-count]');
+        const closeButton = document.querySelector('[data-lightbox-close]');
+        const prevButton = document.querySelector('[data-lightbox-prev]');
+        const nextButton = document.querySelector('[data-lightbox-next]');
+        let lastFocus = null;
+        let currentList = [];
+        let currentIndex = 0;
+
+        const showCurrent = () => {
+          const item = currentList[currentIndex];
+          if (!item) return;
+          lightboxImg.src = item.dataset.full;
+          lightboxImg.alt = item.querySelector('img').alt;
+          lightboxCaption.textContent = item.dataset.caption || '';
+          lightboxCount.textContent = (currentIndex + 1) + ' / ' + currentList.length;
+        };
+        const openLightbox = item => {
+          currentList = items.filter(i => !i.hidden);
+          currentIndex = Math.max(0, currentList.indexOf(item));
+          lastFocus = document.activeElement;
+          showCurrent();
+          lightbox.classList.add('open');
+          lightbox.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+          closeButton.focus();
+        };
+        const closeLightbox = () => {
+          lightbox.classList.remove('open');
+          lightbox.setAttribute('aria-hidden', 'true');
+          lightboxImg.src = '';
+          document.body.style.overflow = '';
+          if (lastFocus) lastFocus.focus();
+        };
+        const step = dir => {
+          if (!currentList.length) return;
+          currentIndex = (currentIndex + dir + currentList.length) % currentList.length;
+          showCurrent();
+        };
+
+        items.forEach(item => {
+          item.addEventListener('click', () => openLightbox(item));
+          item.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              openLightbox(item);
+            }
+          });
+        });
+        closeButton.addEventListener('click', closeLightbox);
+        prevButton.addEventListener('click', () => step(-1));
+        nextButton.addEventListener('click', () => step(1));
+        lightbox.addEventListener('click', event => {
+          if (event.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', event => {
+          if (!lightbox.classList.contains('open')) return;
+          if (event.key === 'Escape') closeLightbox();
+          if (event.key === 'ArrowLeft') step(-1);
+          if (event.key === 'ArrowRight') step(1);
+        });
       });
     })();
   </script>
