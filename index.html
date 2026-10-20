@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sanidade Zero — Rock de Itajubá/MG</title>
+  <meta name="description" content="Sanidade Zero: rock raiz dos anos 70 e 80, de Itajubá/MG, para festivais, eventos públicos, aniversários, bares e cafés. Longa vida ao Rock N' Roll.">
+  <meta property="og:title" content="Sanidade Zero — Rock de Itajubá/MG">
+  <meta property="og:description" content="Rock raiz, presença de palco e clássicos dos anos 70 e 80 para o seu evento.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/hero-pedrockinho.jpg">
+  <link rel="icon" href="assets/logo-sanidade-zero.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --black:#070607;
+      --coal:#0d0b0c;
+      --panel:#141114;
+      --panel-2:#1a1519;
+      --line:rgba(244,239,232,.14);
+      --paper:#f4efe8;
+      --muted:#b8aea6;
+      --red:#e32636;
+      --red-dark:#9f1020;
+      --amber:#ffb454;
+      --max:1240px;
+      --radius:22px;
+      --shadow:0 30px 80px rgba(0,0,0,.48);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--black);
+      color:var(--paper);
+      font-family:"Archivo", Arial, sans-serif;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:999;
+      pointer-events:none;
+      opacity:.032;
+      background-image:repeating-linear-gradient(0deg, transparent 0 2px, #fff 2px 3px), repeating-linear-gradient(90deg, transparent 0 3px, #fff 3px 4px);
+      mix-blend-mode:overlay;
+    }
+    ::selection{background:var(--red); color:#fff}
+    img{display:block; max-width:100%}
+    a{color:inherit}
+    .skip-link{
+      position:absolute; left:1rem; top:-10rem; z-index:1000;
+      background:#fff; color:#000; padding:.75rem 1rem; font-weight:800;
+    }
+    .skip-link:focus{top:1rem}
+    .site-header{
+      position:fixed; inset:0 0 auto; z-index:100;
+      transition:background .3s ease, border-color .3s ease, backdrop-filter .3s ease;
+      border-bottom:1px solid transparent;
+    }
+    .site-header.scrolled{
+      background:rgba(7,6,7,.88);
+      border-color:var(--line);
+      backdrop-filter:blur(16px);
+    }
+    .header-inner{
+      width:min(var(--max), calc(100% - 2rem));
+      margin:auto; min-height:76px;
+      display:flex; align-items:center; justify-content:space-between; gap:1.25rem;
+    }
+    .brand{
+      display:flex; align-items:center; gap:.8rem; text-decoration:none; min-width:0;
+    }
+    .brand img{
+      width:48px; height:48px; object-fit:cover;
+      border:1px solid rgba(255,255,255,.28); border-radius:12px;
+      box-shadow:0 10px 30px rgba(0,0,0,.4);
+    }
+    .brand-text{line-height:.95}
+    .brand-text strong{
+      display:block; font-family:"Anton", Impact, sans-serif; font-size:1.28rem; letter-spacing:.06em; font-weight:400;
+    }
+    .brand-text span{font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); font-weight:800}
+    .main-nav{display:flex; align-items:center; gap:1.6rem}
+    .main-nav a{
+      text-decoration:none; font-size:.78rem; text-transform:uppercase; letter-spacing:.13em; font-weight:800; color:#e9e2d9;
+    }
+    .main-nav a:not(.nav-cta):hover{color:var(--amber)}
+    .nav-cta{
+      background:var(--red); color:#fff !important; padding:.72rem 1rem;
+      clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);
+    }
+    .menu-button{
+      display:none; width:46px; height:46px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:#fff;
+      border-radius:12px; cursor:pointer; font-size:1.25rem;
+    }
+    .hero{
+      position:relative; min-height:100svh; display:flex; align-items:flex-end;
+      isolation:isolate; overflow:hidden; padding:9.5rem 0 0;
+    }
+    .hero-bg{position:absolute; inset:0; z-index:-3}
+    .hero-bg img{width:100%; height:100%; object-fit:cover; object-position:center 42%; filter:saturate(1.05) contrast(1.05)}
+    .hero::before{
+      content:""; position:absolute; inset:0; z-index:-2;
+      background:linear-gradient(90deg, rgba(4,3,4,.94) 0%, rgba(4,3,4,.78) 42%, rgba(4,3,4,.2) 76%), linear-gradient(0deg, var(--black) 0%, transparent 42%), linear-gradient(180deg, rgba(0,0,0,.58), transparent 36%);
+    }
+    .hero::after{
+      content:""; position:absolute; width:52vw; height:160px; right:-12vw; top:22%; z-index:-1;
+      background:linear-gradient(90deg, transparent, rgba(227,38,54,.72)); transform:rotate(-8deg); filter:blur(1px); opacity:.55;
+    }
+    .hero-inner{width:min(var(--max), calc(100% - 2rem)); margin:auto; padding-bottom:3rem}
+    .hero-lockup{display:flex; align-items:center; gap:1rem; margin-bottom:1.4rem}
+    .hero-lockup img{width:86px; height:86px; object-fit:cover; border-radius:18px; border:1px solid rgba(255,255,255,.3); box-shadow:var(--shadow)}
+    .hero-lockup p{margin:0; max-width:280px; color:#fff; font-weight:800; line-height:1.3}
+    .hero-lockup p span{display:block; color:var(--amber); text-transform:uppercase; letter-spacing:.16em; font-size:.72rem; margin-bottom:.25rem}
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:.65rem; margin:0 0 1rem;
+      text-transform:uppercase; letter-spacing:.22em; font-size:.72rem; font-weight:900; color:#fff;
+    }
+    .eyebrow::before{content:""; width:42px; height:3px; background:var(--red)}
+    h1,h2,h3{margin:0; line-height:.95}
+    h1{
+      font-family:"Anton", Impact, sans-serif; font-weight:400;
+      font-size:clamp(4.6rem, 13vw, 11.8rem); letter-spacing:.015em; text-transform:uppercase;
+      text-shadow:0 16px 50px rgba(0,0,0,.55);
+    }
+    h1 .zero{
+      color:var(--red);
+      -webkit-text-stroke:2px rgba(255,255,255,.9);
+      paint-order:stroke fill;
+      text-shadow:8px 8px 0 rgba(0,0,0,.72);
+    }
+    .hero-lead{max-width:680px; margin:1.4rem 0 0; font-size:clamp(1.05rem, 2vw, 1.35rem); color:#eee7df; line-height:1.55}
+    .hero-lead strong{color:#fff}
+    .hero-actions{display:flex; flex-wrap:wrap; gap:.85rem; margin-top:2rem}
+    .button{
+      display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+      min-height:52px; padding:.85rem 1.25rem; text-decoration:none;
+      font-weight:900; text-transform:uppercase; letter-spacing:.08em; font-size:.8rem;
+      transition:transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .button:hover{transform:translateY(-2px)}
+    .button-primary{background:var(--red); color:#fff; clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+    .button-primary:hover{background:#f04452}
+    .button-ghost{border:1px solid rgba(255,255,255,.38); background:rgba(0,0,0,.28); color:#fff; backdrop-filter:blur(8px)}
+    .hero-meta{
+      display:grid; grid-template-columns:repeat(3, 1fr); margin-top:3.2rem;
+      border-top:1px solid rgba(255,255,255,.2); border-bottom:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(90deg, rgba(0,0,0,.42), rgba(0,0,0,.08)); backdrop-filter:blur(5px);
+    }
+    .hero-meta div{padding:1.05rem 1.15rem}
+    .hero-meta div + div{border-left:1px solid rgba(255,255,255,.14)}
+    .hero-meta strong{display:block; font-family:"Anton", Impact, sans-serif; font-size:1.35rem; font-weight:400; letter-spacing:.05em}
+    .hero-meta span{color:var(--muted); font-size:.82rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em}
+    .marquee{background:var(--red); color:#fff; overflow:hidden; transform:rotate(-1.1deg) scale(1.02); border-block:4px solid #fff; box-shadow:0 16px 50px rgba(0,0,0,.35)}
+    .marquee-track{display:flex; width:max-content; animation:marquee 24s linear infinite}
+    .marquee-track span{font-family:"Anton", Impact, sans-serif; font-size:clamp(1.25rem, 3vw, 2.2rem); letter-spacing:.08em; text-transform:uppercase; padding:.72rem 1.4rem; white-space:nowrap}
+    @keyframes marquee{to{transform:translateX(-50%)}}
+    .section{padding:clamp(5rem, 10vw, 8.5rem) 0; position:relative}
+    .section.alt{background:linear-gradient(180deg, #0a0809, #100d10)}
+    .container{width:min(var(--max), calc(100% - 2rem)); margin:auto}
+    .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:2rem; margin-bottom:2.6rem}
+    .section-kicker{color:var(--amber); text-transform:uppercase; letter-spacing:.22em; font-size:.72rem; font-weight:900; margin:0 0 .75rem}
+    h2{font-family:"Anton", Impact, sans-serif; font-size:clamp(2.55rem, 6vw, 5.2rem); font-weight:400; text-transform:uppercase; letter-spacing:.02em}
+    h2 em{font-style:normal; color:var(--red)}
+    .section-head p{max-width:480px; color:var(--muted); margin:0; font-size:1.02rem}
+    .about-grid{display:grid; grid-template-columns:1.02fr .98fr; gap:clamp(2rem, 5vw, 5rem); align-items:center}
+    .about-copy p{color:#d8d0c8; font-size:1.06rem}
+    .about-copy p:first-child{margin-top:0}
+    .about-copy strong{color:#fff}
+    .feature-list{list-style:none; padding:0; margin:1.7rem 0 0; display:grid; gap:.85rem}
+    .feature-list li{display:flex; gap:.8rem; align-items:flex-start; color:#eee7df; font-weight:700}
+    .feature-list li::before{content:""; flex:0 0 auto; width:10px; height:10px; margin-top:.48rem; background:var(--red); transform:rotate(45deg)}
+    .image-frame{position:relative}
+    .image-frame::before{content:""; position:absolute; inset:18px -18px -18px 18px; border:1px solid rgba(227,38,54,.55); z-index:0}
+    .image-frame img{position:relative; z-index:1; width:100%; height:620px; object-fit:cover; border-radius:4px; box-shadow:var(--shadow)}
+    .photo-stamp{
+      position:absolute; z-index:2; right:1.2rem; bottom:1.2rem; background:#fff; color:#0a0a0a;
+      font-family:"Anton", Impact, sans-serif; letter-spacing:.06em; text-transform:uppercase;
+      padding:.75rem 1rem; transform:rotate(-3deg); box-shadow:0 16px 40px rgba(0,0,0,.35);
+    }
+    .formats-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:1rem; margin-top:3.5rem}
+    .format-card{background:linear-gradient(180deg, var(--panel), #100d10); border:1px solid var(--line); padding:1.35rem; min-height:220px; border-radius:var(--radius)}
+    .format-card svg{width:38px; height:38px; stroke:var(--amber); margin-bottom:1.2rem}
+    .format-card h3{font-size:1.15rem; line-height:1.15; margin-bottom:.6rem}
+    .format-card p{color:var(--muted); margin:0; font-size:.94rem}
+    .events-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:1rem}
+    .event-card{
+      background:var(--panel); border:1px solid var(--line); border-radius:20px; overflow:hidden;
+      display:flex; flex-direction:column; min-height:100%;
+      transition:transform .25s ease, border-color .25s ease;
+    }
+    .event-card:hover{transform:translateY(-5px); border-color:rgba(255,180,84,.5)}
+    .event-card.featured{grid-column:span 2}
+    .event-card img{width:100%; height:230px; object-fit:cover}
+    .event-card.featured img{height:260px}
+    .event-body{padding:1.25rem; display:flex; flex-direction:column; gap:.65rem; flex:1}
+    .event-tag{color:var(--amber); text-transform:uppercase; font-size:.68rem; letter-spacing:.17em; font-weight:900}
+    .event-body h3{font-size:1.28rem; line-height:1.1}
+    .event-body p{color:var(--muted); margin:0; font-size:.94rem; flex:1}
+    .album-link{color:#fff; font-weight:900; text-decoration:none; text-transform:uppercase; letter-spacing:.08em; font-size:.74rem}
+    .album-link:hover{color:var(--amber)}
+    .gallery-grid{display:grid; grid-template-columns:repeat(4, 1fr); grid-auto-rows:210px; gap:1rem}
+    .gallery-item{
+      position:relative; border:0; padding:0; overflow:hidden; border-radius:18px; cursor:pointer; background:#222;
+      text-align:left; color:#fff;
+    }
+    .gallery-item.wide{grid-column:span 2}
+    .gallery-item.tall{grid-row:span 2}
+    .gallery-item img{width:100%; height:100%; object-fit:cover; transition:transform .45s ease, filter .45s ease}
+    .gallery-item:hover img{transform:scale(1.045); filter:brightness(1.06)}
+    .gallery-item figcaption{
+      position:absolute; inset:auto 0 0; padding:2.6rem 1rem .95rem;
+      background:linear-gradient(transparent, rgba(0,0,0,.86)); font-weight:900; letter-spacing:.03em;
+    }
+    .gallery-item figcaption span{display:block; color:var(--amber); font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; margin-bottom:.2rem}
+    .members-layout{display:grid; grid-template-columns:.92fr 1.08fr; gap:clamp(2rem, 5vw, 5rem); align-items:center}
+    .members-photo{position:relative}
+    .members-photo img{width:100%; height:560px; object-fit:cover; border-radius:4px; box-shadow:var(--shadow)}
+    .members-photo::after{content:"ITAJUBÁ • MG"; position:absolute; left:1rem; bottom:1rem; background:var(--red); color:#fff; padding:.55rem .8rem; font-weight:900; letter-spacing:.13em; font-size:.72rem}
+    .members-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:1rem}
+    .member-card{border:1px solid var(--line); background:linear-gradient(145deg, #181216, #0e0b0d); padding:1.4rem; border-radius:18px; min-height:190px; display:flex; flex-direction:column; justify-content:space-between}
+    .member-initial{font-family:"Anton", Impact, sans-serif; font-size:3.6rem; line-height:1; color:transparent; -webkit-text-stroke:1.5px rgba(255,255,255,.55)}
+    .member-card h3{font-family:"Anton", Impact, sans-serif; font-weight:400; font-size:1.65rem; letter-spacing:.04em; text-transform:uppercase; margin-top:1.2rem}
+    .member-card p{margin:.2rem 0 0; color:var(--amber); font-size:.75rem; letter-spacing:.16em; text-transform:uppercase; font-weight:900}
+    .booking{
+      position:relative; overflow:hidden; border-radius:28px; padding:clamp(2rem, 6vw, 5rem);
+      border:1px solid var(--line); isolation:isolate; box-shadow:var(--shadow);
+    }
+    .booking::before{content:""; position:absolute; inset:0; z-index:-2; background:url("assets/evento-pedrock-fotografo.jpg") center/cover}
+    .booking::after{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg, rgba(5,4,5,.96), rgba(5,4,5,.72) 58%, rgba(159,16,32,.42))}
+    .booking h2{max-width:760px}
+    .booking p{max-width:660px; color:#e7ded4; font-size:1.08rem}
+    .booking-actions{display:flex; flex-wrap:wrap; gap:.85rem; margin-top:1.8rem}
+    .contact-line{display:flex; flex-wrap:wrap; gap:1rem 2rem; margin-top:1.6rem; color:#fff; font-weight:800}
+    .contact-line a{text-decoration:none; border-bottom:1px solid rgba(255,255,255,.35)}
+    .site-footer{border-top:1px solid var(--line); padding:2.2rem 0; background:#050405}
+    .footer-inner{width:min(var(--max), calc(100% - 2rem)); margin:auto; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap}
+    .footer-inner p{margin:0; color:var(--muted); font-size:.9rem}
+    .footer-inner .credit{font-size:.78rem; letter-spacing:.04em}
+    .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease}
+    .reveal.visible{opacity:1; transform:none}
+    .lightbox{
+      position:fixed; inset:0; z-index:300; display:none; align-items:center; justify-content:center;
+      background:rgba(0,0,0,.94); padding:1rem;
+    }
+    .lightbox.open{display:flex}
+    .lightbox-card{width:min(1080px, 100%); max-height:94vh}
+    .lightbox-card img{width:100%; max-height:78vh; object-fit:contain; background:#111}
+    .lightbox-caption{display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:1rem 0; color:#fff; font-weight:800}
+    .lightbox-close{background:#fff; color:#000; border:0; width:44px; height:44px; border-radius:50%; cursor:pointer; font-size:1.4rem; flex:0 0 auto}
+    :focus-visible{outline:3px solid var(--amber); outline-offset:3px}
+    @media (max-width: 1020px){
+      .formats-grid,.events-grid{grid-template-columns:repeat(2, 1fr)}
+      .gallery-grid{grid-template-columns:repeat(2, 1fr)}
+      .about-grid,.members-layout{grid-template-columns:1fr}
+      .image-frame img{height:520px}
+      .members-photo img{height:480px}
+    }
+    @media (max-width: 760px){
+      .menu-button{display:grid; place-items:center}
+      .main-nav{
+        position:absolute; top:76px; left:1rem; right:1rem; display:none; flex-direction:column; align-items:stretch;
+        background:rgba(10,8,10,.97); border:1px solid var(--line); border-radius:16px; padding:1rem; gap:.35rem;
+      }
+      .main-nav.open{display:flex}
+      .main-nav a{padding:.75rem}
+      .nav-cta{text-align:center}
+      .hero{padding-top:7.5rem}
+      .hero-lockup img{width:64px; height:64px; border-radius:14px}
+      .hero-meta{grid-template-columns:1fr}
+      .hero-meta div + div{border-left:0; border-top:1px solid rgba(255,255,255,.14)}
+      .section-head{display:block}
+      .section-head p{margin-top:1rem}
+      .formats-grid,.events-grid,.members-grid{grid-template-columns:1fr}
+      .event-card.featured{grid-column:span 1}
+      .gallery-grid{grid-template-columns:1fr; grid-auto-rows:280px}
+      .gallery-item.wide{grid-column:span 1}
+      .gallery-item.tall{grid-row:span 1}
+      .image-frame img,.members-photo img{height:420px}
+      .footer-inner{display:block}
+      .footer-inner p + p{margin-top:.6rem}
+    }
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important}
+      .reveal{opacity:1; transform:none}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="site-header" id="topo">
+    <div class="header-inner">
+      <a class="brand" href="#inicio" aria-label="Sanidade Zero — início">
+        <img src="assets/logo-sanidade-zero.jpg" alt="Logo da Banda Sanidade Zero">
+        <span class="brand-text">
+          <strong>Sanidade Zero</strong>
+          <span>Itajubá • Minas Gerais</span>
+        </span>
+      </a>
+      <button class="menu-button" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu" data-menu-button>☰</button>
+      <nav class="main-nav" id="menu" aria-label="Navegação principal" data-menu>
+        <a href="#a-banda">A banda</a>
+        <a href="#shows">Shows</a>
+        <a href="#galeria">Galeria</a>
+        <a href="#integrantes">Integrantes</a>
+        <a href="#contrate">Contato</a>
+        <a class="nav-cta" href="https://wa.me/5535992473137?text=Ol%C3%A1!%20Quero%20informa%C3%A7%C3%B5es%20para%20contratar%20a%20Banda%20Sanidade%20Zero." target="_blank" rel="noreferrer">Contrate a banda</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio" aria-label="Banda Sanidade Zero ao vivo no Pedrock">
+      <div class="hero-bg" aria-hidden="true">
+        <img src="assets/hero-pedrockinho.jpg" alt="">
+      </div>
+      <div class="hero-inner">
+        <div class="hero-lockup">
+          <img src="assets/logo-sanidade-zero.jpg" alt="Logo oficial da Sanidade Zero">
+          <p><span>Rock raiz • Anos 70 &amp; 80</span> Energia de palco, repertório de clássicos e presença de verdade.</p>
+        </div>
+        <p class="eyebrow">Banda de rock • Itajubá / MG</p>
+        <h1>Sanidade<br><span class="zero">Zero</span></h1>
+        <p class="hero-lead">O som que atravessa gerações, tocado ao vivo com a urgência de quem nasceu para o palco. <strong>Longa vida ao Rock N' Roll.</strong></p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://wa.me/5535992473137?text=Ol%C3%A1!%20Quero%20informa%C3%A7%C3%B5es%20para%20contratar%20a%20Banda%20Sanidade%20Zero." target="_blank" rel="noreferrer">Contrate a banda</a>
+          <a class="button button-ghost" href="#shows">Ver shows e eventos</a>
+        </div>
+        <div class="hero-meta" aria-label="Destaques da banda">
+          <div><strong>70 &amp; 80</strong><span>A essência do rock raiz</span></div>
+          <div><strong>Ao vivo</strong><span>Festivais, ruas e palcos</span></div>
+          <div><strong>Salve o Rock!</strong><span>Atitude em cada show</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Longa vida ao Rock N' Roll ✦ Salve o Rock! ✦ Sanidade Zero ✦ Itajubá • MG ✦ </span>
+        <span>Longa vida ao Rock N' Roll ✦ Salve o Rock! ✦ Sanidade Zero ✦ Itajubá • MG ✦ </span>
+      </div>
+    </div>
+
+    <section class="section" id="a-banda">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="section-kicker">A banda</p>
+            <h2>Rock sem<br><em>meio-termo</em></h2>
+          </div>
+          <p>Da energia dos festivais ao clima intimista de um café, a Sanidade Zero transforma repertório clássico em experiência ao vivo.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-copy reveal">
+            <p>A <strong>Sanidade Zero</strong> é uma banda de rock de <strong>Itajubá, no sul de Minas Gerais</strong>, formada por músicos apaixonados pela sonoridade direta e atemporal dos anos 70 e 80.</p>
+            <p>O grupo leva para o palco riffs marcantes, refrões que todo mundo reconhece e a atmosfera dos grandes shows: volume, entrega e conexão com o público do primeiro ao último acorde.</p>
+            <p>A trajetória já passa por eventos da Prefeitura, festivais como o Pedrock, encontros de carros antigos, aniversários, bares e cafés — sempre com a mesma assinatura: <strong>rock raiz, tocado ao vivo e sem economia de energia</strong>.</p>
+            <ul class="feature-list">
+              <li>Clássicos do rock dos anos 70 e 80 em formato ao vivo.</li>
+              <li>Show para eventos públicos, festas privadas e casas de música.</li>
+              <li>Presença de palco construída em festivais e eventos regionais.</li>
+              <li>Identidade visual e atitude inspiradas na era de ouro do rock.</li>
+            </ul>
+          </div>
+          <figure class="image-frame reveal" style="margin:0">
+            <img src="assets/sobre-jazz-cafe.jpg" alt="Banda Sanidade Zero reunida no palco do Jazz Café" loading="lazy" decoding="async">
+            <figcaption class="photo-stamp">Salve o Rock!</figcaption>
+          </figure>
+        </div>
+
+        <div class="formats-grid" aria-label="Formatos de apresentação">
+          <article class="format-card reveal">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" aria-hidden="true"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/><path d="M2 20h20"/></svg>
+            <h3>Festivais e eventos públicos</h3>
+            <p>Repertório amplo e energia de palco grande para praças, parques, festas municipais e programação cultural.</p>
+          </article>
+          <article class="format-card reveal">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" aria-hidden="true"><path d="M4 16l1.5-5A2 2 0 0 1 7.4 9.5h9.2a2 2 0 0 1 1.9 1.5L20 16"/><path d="M3 16h18v4H3z"/><circle cx="7" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/></svg>
+            <h3>Encontros e cultura automotiva</h3>
+            <p>Rock clássico na mesma frequência de motores, carros antigos e encontros que celebram outras épocas.</p>
+          </article>
+          <article class="format-card reveal">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" aria-hidden="true"><path d="M4 21h16"/><path d="M6 21v-7h12v7"/><path d="M12 14V9"/><path d="M12 9a2.2 2.2 0 1 0-2.2-2.2c0 1.4 2.2 2.2 2.2 2.2zm0 0a2.2 2.2 0 1 1 2.2-2.2C14.2 8.2 12 9 12 9z"/></svg>
+            <h3>Aniversários e confraternizações</h3>
+            <p>Uma trilha ao vivo para reunir gerações e transformar a festa em memória coletiva.</p>
+          </article>
+          <article class="format-card reveal">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" aria-hidden="true"><path d="M4 10h13v7a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M7 6c0 1-1 1.2-1 2M12 6c0 1-1 1.2-1 2"/></svg>
+            <h3>Bares, pubs e cafés</h3>
+            <p>O clássico formato de casa de música: perto do público, com clássicos que pedem coro e bis.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="shows">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="section-kicker">Arquivo ao vivo</p>
+            <h2>Shows &amp;<br><em>eventos</em></h2>
+          </div>
+          <p>Registros reais da banda em palcos, festivais, ensaios e encontros. Clique em um card para abrir o álbum completo.</p>
+        </div>
+
+        <div class="events-grid">
+          <article class="event-card featured reveal">
+            <img src="assets/evento-pedrock-fotografo.jpg" alt="Sanidade Zero tocando em palco aberto durante o Pedrock" loading="lazy" decoding="async">
+            <div class="event-body">
+              <span class="event-tag">Festival • Palco aberto</span>
+              <h3>Pedrock — cobertura do fotógrafo</h3>
+              <p>Vista ampla do palco, público e estrutura do festival: a dimensão de um show feito para ocupar o espaço e levantar a plateia.</p>
+              <a class="album-link" href="https://photos.app.goo.gl/dpu85PuQDZ7E9gTC6" target="_blank" rel="noreferrer">Ver álbum completo →</a>
+            </div>
+          </article>
+
+          <article class="event-card reveal">
+            <img src="assets/evento-pedrock.jpg" alt="Bateria da Sanidade Zero no palco do Pedrock" loading="lazy" decoding="async">
+            <div class="event-body">
+              <span class="event-tag">Festival</span>
+              <h3>Pedrock 26</h3>
+              <p>Um dos palcos centrais da trajetória recente da banda, com repertório clássico e energia de festival.</p>
+              <a class="album-link" href="https://photos.app.goo.gl/E5pjJdvmGtmBgTJ66" target="_blank" rel="noreferrer">Ver álbum completo →</a>
+            </div>
+          </article>
+
+          <article class="event-card reveal">
+            <img src="assets/evento-jazz-cafe.jpg" alt="Sanidade Zero no palco do Jazz Café" loading="lazy" decoding="async">
+            <div class="event-body">
+              <span class="event-tag">Casa de música</span>
+              <h3>Show no Jazz Café</h3>
+              <p>Cortina vermelha, luz de palco e a banda completa em um dos formatos mais clássicos do rock ao vivo.</p>
+              <a class="album-link" href="https://photos.app.goo.gl/7w1BWwYpQnjwpa4A7" target="_blank" rel="noreferrer">Ver álbum completo →</a>
+            </div>
+          </article>
+
+          <article class="event-card reveal">
+            <img src="assets/evento-dia-das-criancas.jpg" alt="Apresentação da Sanidade Zero em evento do Dia das Crianças" loading="lazy" decoding="async">
+            <div class="event-body">
+              <span class="event-tag">Prefeitura • Parque</span>
+              <h3>Dia das Crianças</h3>
+              <p>Rock para todas as idades em evento público no parque, com palco aberto e programação para a família.</p>
+              <a class="album-link" href="https://photos.app.goo.gl/bH5GpWW62cnwGxN5A" target="_blank" rel="noreferrer">Ver álbum completo →</a>
+            </div>
+          </article>
+
+          <article class="event-card reveal">
+            <img src="assets/evento-carros-antigos.jpg" alt="Sanidade Zero em palco de encontro de carros antigos" loading="lazy" decoding="async">
+            <div class="event-body">
+              <span class="event-tag">Cultura automotiva</span>
+              <h3>Encontro de Carros Antigos</h3>
+              <p>Clássicos sobre rodas e clássicos do rock dividindo o mesmo evento — combinação direta com a identidade da banda.</p>
+              <a class="album-link" href="https://photos.app.goo.gl/836xyXRVHTUQhKH37" target="_blank" rel="noreferrer">Ver álbum completo →</a>
+            </div>
+          </article>
+
+          <article class="event-card reveal">
+            <img src="assets/evento-aniversario-oliver.jpg" alt="Sanidade Zero tocando em apresentação de aniversário" loading="lazy" decoding="async">
+            <div class="event-body">
+              <span class="event-tag">Evento privado</span>
+              <h3>Show Aniversário Oliver</h3>
+              <p>Apresentação ao ar livre em clima de celebração, com a banda próxima do público e repertório para todas as gerações.</p>
+              <a class="album-link" href="https://photos.app.goo.gl/pC3Y6jmTsRooVQZ46" target="_blank" rel="noreferrer">Ver álbum completo →</a>
+            </div>
+          </article>
+
+          <article class="event-card reveal">
+            <img src="assets/evento-inscricao-pedrock.jpg" alt="Palco iluminado durante o Pedrock" loading="lazy" decoding="async">
+            <div class="event-body">
+              <span class="event-tag">Festival • Bastidores</span>
+              <h3>Inscrição Pedrock</h3>
+              <p>Registros ligados à participação da banda no festival, do processo de inscrição à atmosfera noturna do evento.</p>
+              <a class="album-link" href="https://photos.app.goo.gl/ymMqkqinut4DQcGE7" target="_blank" rel="noreferrer">Ver álbum completo →</a>
+            </div>
+          </article>
+
+          <article class="event-card reveal">
+            <img src="assets/evento-ensaios.jpg" alt="Integrantes da Sanidade Zero durante ensaio" loading="lazy" decoding="async">
+            <div class="event-body">
+              <span class="event-tag">Preparação</span>
+              <h3>Ensaios</h3>
+              <p>Antes do palco, o trabalho de ensaio: repertório, entrosamento e a construção da identidade da Sanidade Zero.</p>
+              <a class="album-link" href="https://photos.app.goo.gl/uYvHGnibh6fgghNN9" target="_blank" rel="noreferrer">Ver álbum completo →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="galeria">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="section-kicker">Fotos reais</p>
+            <h2>Direto<br><em>do palco</em></h2>
+          </div>
+          <p>Nada de banco de imagem: cada foto desta galeria veio dos álbuns da própria banda. Clique para ampliar.</p>
+        </div>
+
+        <div class="gallery-grid">
+          <figure class="gallery-item wide reveal" tabindex="0" role="button" aria-label="Ampliar foto do palco do Pedrockinho" data-full="assets/galeria-palco-pedrockinho.jpg" data-caption="Pedrock — a banda em ação no palco" style="margin:0">
+            <img src="assets/galeria-palco-pedrockinho.jpg" alt="Sanidade Zero tocando no palco do Pedrock" loading="lazy" decoding="async">
+            <figcaption><span>Pedrock</span> A banda em ação</figcaption>
+          </figure>
+          <figure class="gallery-item tall reveal" tabindex="0" role="button" aria-label="Ampliar foto da bateria no Pedrock" data-full="assets/galeria-bateria-pedrock.jpg" data-caption="Pedrock — bateria e painel do festival" style="margin:0">
+            <img src="assets/galeria-bateria-pedrock.jpg" alt="Baterista da Sanidade Zero diante do painel do Pedrock" loading="lazy" decoding="async">
+            <figcaption><span>Pedrock</span> No comando da bateria</figcaption>
+          </figure>
+          <figure class="gallery-item reveal" tabindex="0" role="button" aria-label="Ampliar foto do show no Jazz Café" data-full="assets/galeria-bateria-jazz.jpg" data-caption="Jazz Café — bateria sob luz verde" style="margin:0">
+            <img src="assets/galeria-bateria-jazz.jpg" alt="Bateria da Sanidade Zero no Jazz Café" loading="lazy" decoding="async">
+            <figcaption><span>Jazz Café</span> Luz, palco e bateria</figcaption>
+          </figure>
+          <figure class="gallery-item reveal" tabindex="0" role="button" aria-label="Ampliar foto de bastidores do Pedrock" data-full="assets/galeria-bastidores-pedrock.jpg" data-caption="Pedrock — bastidores antes do show" style="margin:0">
+            <img src="assets/galeria-bastidores-pedrock.jpg" alt="Integrantes da banda nos bastidores do Pedrock" loading="lazy" decoding="async">
+            <figcaption><span>Bastidores</span> Antes de subir ao palco</figcaption>
+          </figure>
+          <figure class="gallery-item tall reveal" tabindex="0" role="button" aria-label="Ampliar foto do show de aniversário" data-full="assets/galeria-show-oliver.jpg" data-caption="Aniversário Oliver — vocal e banda ao ar livre" style="margin:0">
+            <img src="assets/galeria-show-oliver.jpg" alt="Apresentação da Sanidade Zero em aniversário ao ar livre" loading="lazy" decoding="async">
+            <figcaption><span>Aniversário Oliver</span> Rock ao ar livre</figcaption>
+          </figure>
+          <figure class="gallery-item reveal" tabindex="0" role="button" aria-label="Ampliar foto do encontro de carros antigos" data-full="assets/galeria-carros-antigos.jpg" data-caption="Encontro de Carros Antigos — vista lateral do palco" style="margin:0">
+            <img src="assets/galeria-carros-antigos.jpg" alt="Palco da Sanidade Zero em encontro de carros antigos" loading="lazy" decoding="async">
+            <figcaption><span>Carros antigos</span> Vista do palco</figcaption>
+          </figure>
+          <figure class="gallery-item reveal" tabindex="0" role="button" aria-label="Ampliar foto do Dia das Crianças" data-full="assets/galeria-dia-das-criancas.jpg" data-caption="Dia das Crianças — apresentação em palco aberto" style="margin:0">
+            <img src="assets/galeria-dia-das-criancas.jpg" alt="Sanidade Zero se apresentando no Dia das Crianças" loading="lazy" decoding="async">
+            <figcaption><span>Dia das Crianças</span> Palco aberto no parque</figcaption>
+          </figure>
+          <figure class="gallery-item wide reveal" tabindex="0" role="button" aria-label="Ampliar foto ampla do Pedrockinho" data-full="assets/galeria-pedrockinho.jpg" data-caption="Pedrock — banda e público em plano aberto" style="margin:0">
+            <img src="assets/galeria-pedrockinho.jpg" alt="Sanidade Zero tocando para o público no Pedrock" loading="lazy" decoding="async">
+            <figcaption><span>Pedrock</span> Banda e público</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="integrantes">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="section-kicker">Formação</p>
+            <h2>Quatro nomes,<br><em>uma voltagem</em></h2>
+          </div>
+          <p>Uma banda se reconhece pelo som — e por quem sobe ao palco para defendê-lo ao vivo.</p>
+        </div>
+
+        <div class="members-layout">
+          <figure class="members-photo reveal" style="margin:0">
+            <img src="assets/banda-ensaio.jpg" alt="Os quatro integrantes da Sanidade Zero em retrato de ensaio" loading="lazy" decoding="async">
+          </figure>
+          <div class="members-grid">
+            <article class="member-card reveal">
+              <span class="member-initial" aria-hidden="true">F</span>
+              <div><h3>Fernandinho</h3><p>Sanidade Zero</p></div>
+            </article>
+            <article class="member-card reveal">
+              <span class="member-initial" aria-hidden="true">E</span>
+              <div><h3>Eduardo</h3><p>Sanidade Zero</p></div>
+            </article>
+            <article class="member-card reveal">
+              <span class="member-initial" aria-hidden="true">G</span>
+              <div><h3>Guilherme</h3><p>Sanidade Zero</p></div>
+            </article>
+            <article class="member-card reveal">
+              <span class="member-initial" aria-hidden="true">L</span>
+              <div><h3>Lorenzo</h3><p>Bateria</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contrate">
+      <div class="container">
+        <div class="booking reveal">
+          <p class="section-kicker">Agenda e contratação</p>
+          <h2>Leve a Sanidade Zero para o <em>seu evento</em></h2>
+          <p>Festival, festa da cidade, encontro de carros antigos, aniversário, bar ou café: fale com a banda, consulte disponibilidade e monte a apresentação para o seu público.</p>
+          <div class="booking-actions">
+            <a class="button button-primary" href="https://wa.me/5535992473137?text=Ol%C3%A1!%20Quero%20consultar%20a%20disponibilidade%20da%20Banda%20Sanidade%20Zero%20para%20um%20evento." target="_blank" rel="noreferrer">Chamar no WhatsApp</a>
+            <a class="button button-ghost" href="https://www.instagram.com/sanidadezero.banda" target="_blank" rel="noreferrer">Ver o Instagram</a>
+          </div>
+          <div class="contact-line">
+            <span>Shows: <a href="https://wa.me/5535992473137" target="_blank" rel="noreferrer">(35) 99247-3137</a></span>
+            <span>Instagram: <a href="https://www.instagram.com/sanidadezero.banda" target="_blank" rel="noreferrer">@sanidadezero.banda</a></span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p><strong>Sanidade Zero</strong> — Itajubá • Minas Gerais • Longa vida ao Rock N' Roll.</p>
+      <p class="credit">Site: Consultoria Digital</p>
+    </div>
+  </footer>
+
+  <div class="lightbox" data-lightbox aria-hidden="true" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+    <div class="lightbox-card">
+      <img src="" alt="" data-lightbox-img>
+      <div class="lightbox-caption">
+        <span data-lightbox-caption></span>
+        <button class="lightbox-close" type="button" data-lightbox-close aria-label="Fechar foto">×</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "name": "Sanidade Zero",
+    "genre": "Rock",
+    "foundingLocation": {
+      "@type": "Place",
+      "name": "Itajubá, Minas Gerais, Brasil"
+    },
+    "member": [
+      {"@type": "Person", "name": "Fernandinho"},
+      {"@type": "Person", "name": "Eduardo"},
+      {"@type": "Person", "name": "Guilherme"},
+      {"@type": "Person", "name": "Lorenzo"}
+    ],
+    "sameAs": ["https://www.instagram.com/sanidadezero.banda"]
+  }
+  </script>
+  <script>
+    (() => {
+      const header = document.querySelector('.site-header');
+      const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 24);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      const menuButton = document.querySelector('[data-menu-button]');
+      const menu = document.querySelector('[data-menu]');
+      menuButton.addEventListener('click', () => {
+        const open = menu.classList.toggle('open');
+        menuButton.setAttribute('aria-expanded', String(open));
+        menuButton.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+      });
+      menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+        menu.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      }));
+
+      const revealItems = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealItems.forEach(item => observer.observe(item));
+      } else {
+        revealItems.forEach(item => item.classList.add('visible'));
+      }
+
+      const lightbox = document.querySelector('[data-lightbox]');
+      const lightboxImg = document.querySelector('[data-lightbox-img]');
+      const lightboxCaption = document.querySelector('[data-lightbox-caption]');
+      const closeButton = document.querySelector('[data-lightbox-close]');
+      let lastFocus = null;
+
+      const openLightbox = item => {
+        lastFocus = document.activeElement;
+        lightboxImg.src = item.dataset.full;
+        lightboxImg.alt = item.querySelector('img').alt;
+        lightboxCaption.textContent = item.dataset.caption || '';
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        closeButton.focus();
+      };
+      const closeLightbox = () => {
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        lightboxImg.src = '';
+        document.body.style.overflow = '';
+        if (lastFocus) lastFocus.focus();
+      };
+
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', () => openLightbox(item));
+        item.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openLightbox(item);
+          }
+        });
+      });
+      closeButton.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', event => {
+        if (event.target === lightbox) closeLightbox();
+      });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+      });
+    })();
+  </script>
+</body>
+</html>
